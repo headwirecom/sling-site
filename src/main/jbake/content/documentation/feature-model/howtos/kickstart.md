@@ -23,7 +23,6 @@ tags=feature model,sling,kickstart
 In order to follow through this HowTo you need the following on your computer:
 
 * Java 8
-* Maven 3 (is maven really necessary or do we only need the .m2/repo folder? what happens without maven?)
 * Command Line with Bash
 
 ### What is the Kickstarter
@@ -34,15 +33,20 @@ In order to follow through this HowTo you need the following on your computer:
 
 ### Explanation on what will happen
 
-The Kickstarer uses the Feature Model Launcher to run a sling instance for you (what's the difference - document here?)
-
-consults feature model, fetches all files from maven to run sling
+The Kickstarer uses the Feature Model Launcher to run a Sling instance for you, sets up
+a control port to manage the instance and provides default values so that Sling starts
+just fine without any parameters.
+The Feature Launcher will then donwload all the necessary dependencies and install them
+into a Felix container.
 
 ### Step 1: Download the Kickstart JAR File
 
 The Sling Kickstart Project JAR file can be downloaded here:
-[Sling Kickstart Snapshots](https://repository.apache.org/content/groups/snapshots/org/apache/sling/org.apache.sling.kickstart/0.0.1-SNAPSHOT/)
-Select the latest version (jar file) and download it.
+[Sling Kickstart on Apache](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/)
+Select the latest version (like 0.0.1-SNAPSHOT) folder and then the Kickstart Jar file
+ and download it.
+From now on we are referencing the file's version (the part between org.apache.sling.kickstart-
+and .jar) as &lt;VERSION>.
 
 ### Step 2: Create your Project  Folder
 
@@ -57,7 +61,7 @@ Make sure nothing is running on port 8080 as this port will be taken by sling by
 
 We can run the Kickstarter by just executing the JAR file:
 
-	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar
+	$ java -jar org.apache.sling.kickstart-<VERSION>.jar
 
 Head over to [Sling Home Page](http://localhost:8080/). You will see the regular sling
 startup screen until the server is ready. Once ready you'll see the Welcome screen
@@ -77,7 +81,7 @@ Content** to bring up Composum to see the JCR node tree.
 To get a status on the Sling service
 then do:
 
-	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar status
+	$ java -jar org.apache.sling.kickstart-<VERSION>.jar status
 
 
 Which should return:
@@ -88,13 +92,13 @@ Which should return:
 	Terminate VM, status: 0
 
 
-### Step 5: Shut down Sling
+### Step 6: Shut down Sling
 
 use the stop call in the jar
 
 To stop it do:
 
-	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar stop
+	$ java -jar org.apache.sling.kickstart-<VERSION>.jar stop
 
 
 This will then show the status of the process and unix will also print then
@@ -108,7 +112,7 @@ termination of the process:
 	Terminate VM, status: 0
 	mac:sling-kickstart-run schaefa$ [INFO] Framework stopped
 
-	[1]+  Done                    java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar start
+	[1]+  Done                    java -jar org.apache.sling.kickstart-<VERSION>.jar start
 
 
 Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit the process. Make sure your Sling process is gone by validating you dont get a response with your browser on port localhost:8080 anymore
@@ -121,7 +125,7 @@ next up: build your own feature model project and run it with the kickstarter
 
 Finally let's have a look at the launch options:
 
-	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar -h
+	$ java -jar org.apache.sling.kickstart-<VERSION>.jar -h
 
 
 This will print this:
@@ -182,52 +186,26 @@ on your local computer to check it out, develop of test Sling applications.
 [Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
 
 
->> isnt that documented in the readme of the kickstarter? 
+## Addendum
 
-## Addendum: Build from Source
+### Build from Source
 
-To build the Kickstart project from code you need to clone and build both the
-Sling Kickstart Maven Plugin as well as the Sling Kickstart project.
+How to build the Sling Kickstart Project from the source is document in
+the [Kickstart's Readme file](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md)
 
-### Clone and Build Kickstart Maven Plugin
+### Run as a Background Process / Service
 
-First we need to build the Maven plugin because it is needed to run the IT test
-in the Kickstart Project. So we clone it from GitHub:
+The Kickstart Project can launch Sling as a background process also known as service with the
+**start** command:
 
-	$ cd <project root folder>
-	$ git clone git@github.com:apache/sling-kickstart-maven-plugin.git
-	$ cd sling-kickstart-maven-plugin
+    $ java -jar org.apache.sling.kickstart-<VERSION>.jar start
 
 
-Now we can build the project:
+If this is done from a Terminal / Shell then the Kickstart project needs to be placed into
+the background. In Unix this is done with appending a '&':
 
-	$ mvn clean install
-
-
-### Clone and Build Kickstart Project
-
-Now we can clone the Kickstart Project:
+    $ java -jar org.apache.sling.kickstart-<VERSION>.jar start &
 
 
-	$ git clone git@github.com:apache/sling-org-apache-sling-kickstart.git
-	$ cd sling-org-apache-sling-kickstart
-
-
-Now we are ready to build it and then finally run Sling.
-
-	mvn clean install
-
-
-This will build the project but also run Sling as IT to run the Smoke IT test to
-make sure it is working.
-At the end you will find the file **org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar**
-in the **target** folder of our project. We could run it there but that would wipe
-Sling away whenever we clean the project.
-To avoid this will go back to the project root folder and create folder **sling-kickstart-run**
-folder next to folder **sling-org-apache-sling-kickstart** and copy the JAR file
-there:
-
-	cd ..
-	mkdir sling-kickstart-run
-	cd sling-kickstart-run
-	cp ../sling-org-apache-sling-kickstart/target/org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar .
+Because these process are not directly accessible the admin can use the **status** and
+**stop** command as mentioned in **Step 6 and 7**.
