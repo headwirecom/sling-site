@@ -26,6 +26,12 @@ In order to follow through this HowTo you need the following on your computer:
 * Maven 3 (is maven really necessary or do we only need the .m2/repo folder? what happens without maven?)
 * Command Line with Bash
 
+### What is the Kickstarter
+
+* wrapper around fetature launcher exposing the same types of arguments as the uickstart
+* bundles a sling12 feature module
+* uses the maven repo to download feature models and artefacts to start sling
+
 ### Explanation on what will happen
 
 The Kickstarer uses the Feature Model Launcher to run a sling instance for you (what's the difference - document here?)
@@ -109,6 +115,7 @@ Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit
 
 ## Mission Accomplished
 
+next up: build your own feature model project and run it with the kickstarter 
 
 ### Kickstart Launch options
 
