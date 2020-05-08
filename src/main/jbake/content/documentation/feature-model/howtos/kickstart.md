@@ -1,17 +1,20 @@
-title=How To Startup Sling with Kickstart
+title=Get up and running with Sling and the Kickstarter 
 type=page
 status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
-## How To Startup Sling with Kickstart
+<div style="background: lightblue;">
 
-What will you learn: start Sling with Sling Kickstart Project
+* What will you learn: 
+	* We are starting up Apache Sling with the Kickstarter to explore launching
+	with feature models
 
-	How much time: 30min
-	Skill Level: Beginner
-	Environment: Unix
+* Time: 15 minutes
+* Skill Level: Beginner
+* Environment: Windows/Unix
 
+</div>
 
 [Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
 
@@ -20,63 +23,52 @@ What will you learn: start Sling with Sling Kickstart Project
 In order to follow through this HowTo you need the following on your computer:
 
 * Java 8
-* Maven 3
+* Maven 3 (is maven really necessary or do we only need the .m2/repo folder? what happens without maven?)
 * Command Line with Bash
 
-### Download the Kickstart JAR File
+### Explanation on what will happen
+
+The Kickstarer uses the Feature Model Launcher to run a sling instance for you (what's the difference - document here?)
+
+consults feature model, fetches all files from maven to run sling
+
+### Step 1: Download the Kickstart JAR File
 
 The Sling Kickstart Project JAR file can be downloaded here:
 [Sling Kickstart Snapshots](https://repository.apache.org/content/groups/snapshots/org/apache/sling/org.apache.sling.kickstart/0.0.1-SNAPSHOT/)
-Select the latest version, download it and then rename it to
-**org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar**. Then place the file inside
-the **Project Root Folder** of your choice and then open a Terminal and change
-to that folder:
+Select the latest version (jar file) and download it.
+
+### Step 2: Create your Project  Folder
+
+Copy the file into a folder of your choice and double click the jar file
+or go to a shell and navigate to that folder
 
 	$ cd <project root folder>
 
+### Step 3: Run Sling with the Kickstarter
 
-### Run and Access Sling
+Make sure nothing is running on port 8080 as this port will be taken by sling by default. 
 
-We start Sling by just executing the JAR file:
+We can run the Kickstarter by just executing the JAR file:
 
 	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar
 
-
-Wait a moment for Sling to launch fully then head over to the
-[Sling Home Page](http://localhost:8080/):
+Head over to [Sling Home Page](http://localhost:8080/). You will see the regular sling
+startup screen until the server is ready. Once ready you'll see the Welcome screen
 
 ![Sling Home](sling.home.in.browser.png)
+
+### Step 4: Start using Sling
 
 Click **Login** link and log in with **admin/admin** and then click on **browse
 Content** to bring up Composum to see the JCR node tree.
 
-### Run a Service
 
-We first will stop Sling by hitting **Ctrl-C** on the command line to exit the
-process and then launch it with the **start** command:
+### Step 5: Check the status of the running Sling Instance
 
-First check if Sling process has ended
+.. other shell, execute jar with status
 
-	$ ps -ef | grep java
-
-
-Then let Sling start as service:
-
-	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar start &
-
-
-**Note**: the **&** at the end will put the process into the background. Let's
-check if that process is still running:
-
-	$ ps -ef | grep java
-
-
-This should return a line like this:
-
-	501  5498  5008   0  1:10PM ttys001    0:20.17 /usr/bin/java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar start
-
-
-You can now use a browser to work with Sling. To get a status on the Sling service
+To get a status on the Sling service
 then do:
 
 	$ java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar status
@@ -89,6 +81,10 @@ Which should return:
 	Sent 'status' to /127.0.0.1:52481: OK
 	Terminate VM, status: 0
 
+
+### Step 5: Shut down Sling
+
+use the stop call in the jar
 
 To stop it do:
 
@@ -107,6 +103,11 @@ termination of the process:
 	mac:sling-kickstart-run schaefa$ [INFO] Framework stopped
 
 	[1]+  Done                    java -jar org.apache.sling.kickstart-0.0.1-SNAPSHOT.jar start
+
+
+Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit the process. Make sure your Sling process is gone by validating you dont get a response with your browser on port localhost:8080 anymore
+
+## Mission Accomplished
 
 
 ### Kickstart Launch options
@@ -172,6 +173,9 @@ This was s short introduction into the **Sling Kickstart** project to launch Sli
 on your local computer to check it out, develop of test Sling applications.
 
 [Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
+
+
+>> isnt that documented in the readme of the kickstarter? 
 
 ## Addendum: Build from Source
 
