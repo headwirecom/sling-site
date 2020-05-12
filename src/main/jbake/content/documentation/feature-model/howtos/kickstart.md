@@ -1,4 +1,4 @@
-title=Get up and running with Sling and the Kickstarter 
+title=Get up and running with Sling and the Kickstart
 type=page
 status=published
 tags=feature model,sling,kickstart
