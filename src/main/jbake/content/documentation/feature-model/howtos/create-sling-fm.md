@@ -4,6 +4,8 @@ status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
+### How-To Overview
+
 <div style="background: lightblue;">
 
 * What will you learn: 
@@ -15,7 +17,7 @@ tags=feature model,sling,kickstart
 
 </div>
 
-[Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
@@ -92,4 +94,5 @@ and uses that one to launch Sling.
 
 ## Mission Accomplished
 
-next up: create a feature archive (FAR) 
+* Next Up: [Create a Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)

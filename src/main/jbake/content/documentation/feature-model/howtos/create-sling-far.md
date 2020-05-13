@@ -4,6 +4,8 @@ status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
+### How-To Overview
+
 <div style="background: lightblue;">
 
 * What will you learn: 
@@ -15,7 +17,7 @@ tags=feature model,sling,kickstart
 
 </div>
 
-[Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
@@ -124,7 +126,8 @@ This will bring up Sling in all its glory.
 
 ## Mission Accomplished
 
-next up: create a feature archive (FAR) 
+* Next Up: [Create a Sling Composite Nodestore](/documentation/feature-model/howtos/create-sling-composite.html)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ## Addendum
 

@@ -11,10 +11,10 @@ references.
 
 ## Feature Model Guides
 
-* [How To Start Sling with Kickstart](/documentation/feature-model/howtos/kickstart.md)
-* [Deep Dive into Create Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.md)
-* [How To Create Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.md)
-* [How to Create Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.md)
+* [How To Start Sling with Kickstart](/documentation/feature-model/howtos/kickstart.html)
+* [Deep Dive into Create Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* [How To Create Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
+* [How to Create Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
 
 ## Feature Model Readme Files
 

@@ -4,8 +4,9 @@ status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
-<div style="background: lightblue;">
+### How-To Overview
 
+<div style="background: lightblue;">
 * What will you learn: 
 	* We are starting up Apache Sling with the Kickstarter to explore launching
 	with feature models
@@ -13,10 +14,9 @@ tags=feature model,sling,kickstart
 * Time: 15 minutes
 * Skill Level: Beginner
 * Environment: Windows/Unix
-
 </div>
 
-[Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
@@ -119,7 +119,8 @@ Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit
 
 ## Mission Accomplished
 
-next up: build your own feature model project and run it with the kickstarter 
+* Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ### Kickstart Launch options
 
@@ -177,14 +178,6 @@ two additional options:
 
 * **-s**: allows to specify your own Sling Feature Model / Archive
 * **-af**: allows to add additional Feature Model / Archives (repeat for each feature file)
-
-### Conclusion
-
-This was s short introduction into the **Sling Kickstart** project to launch Sling
-on your local computer to check it out, develop of test Sling applications.
-
-[Back to the Feature Model Home](/documentation/feature-model/feature-model-overview.md)
-
 
 ## Addendum
 
