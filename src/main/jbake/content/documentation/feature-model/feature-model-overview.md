@@ -15,6 +15,7 @@ references.
 * [Deep Dive into Create Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * [How To Create Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
 * [How to Create Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
+* [How to Launcher Sling with Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
 
 ## Feature Model Readme Files
 

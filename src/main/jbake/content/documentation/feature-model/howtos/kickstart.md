@@ -7,6 +7,7 @@ tags=feature model,sling,kickstart
 ### How-To Overview
 
 <div style="background: lightblue;">
+
 * What will you learn: 
 	* We are starting up Apache Sling with the Kickstarter to explore launching
 	with feature models
@@ -33,9 +34,10 @@ In order to follow through this HowTo you need the following on your computer:
 
 ### Explanation on what will happen
 
-The Kickstarer uses the Feature Model Launcher to run a Sling instance for you, sets up
-a control port to manage the instance and provides default values so that Sling starts
-just fine without any parameters.
+The [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) uses the
+Feature Model Launcher to run a Sling instance for you, sets up a control port to manage
+the instance and provides default values so that Sling starts just fine without any parameters.
+
 The Feature Launcher will then donwload all the necessary dependencies and install them
 into a Felix container.
 

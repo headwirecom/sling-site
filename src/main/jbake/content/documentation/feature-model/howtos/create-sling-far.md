@@ -51,9 +51,9 @@ So these are the steps necessary:
 
 ### Step 1: Adjust the Kickstart POM File
 
-We will use the Kickstart project as the base for creating the Feature Archive as it has already in
-place to create the Sling FM. To avoid issues with Git we will create a copy and then remove .git folder
-just to be on the safe side.
+We will use the [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) project as the base
+for creating the Feature Archive as it has already in place to create the Sling FM. To avoid issues with
+Git we will create a copy and then remove .git folder just to be on the safe side.
 
     $ cd <project root folder>
     $ cp -R sling-org-apache-sling-kickstart kickstart-with-far

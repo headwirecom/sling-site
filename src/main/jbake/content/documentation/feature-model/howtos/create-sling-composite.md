@@ -57,7 +57,8 @@ project / Feature Launcher does not have to download the dependencies.
 
 ### Step 1: Checkout the Branch
 
-Here the Sling Kickstart is still used but the code is in another branc so we need to check that one out:
+Here the [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) is still used but
+the code is in another branch so we need to check that one out:
 
     $ cd <project root folder>
     $ cd sling-org-apche-sling-kickstart
@@ -141,6 +142,7 @@ see what happens.
 
 ## Mission Accomplished
 
+* Next Up: [Launch Sling with Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ## Addendum

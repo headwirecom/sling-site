@@ -30,7 +30,7 @@ In order to follow through this HowTo you need the following on your computer:
 
 ### What is the Sling Feature Model
 
-* a feature model is a description of all the OSGi dependency and configurations
+* a [feature model](https://github.com/apache/sling-org-apache-sling-feature/blob/master/readme.md) is a description of all the OSGi dependency and configurations
 * feature models can be aggregated into a single feature model
 * feature model(s) can be started with the Sling Feature Launcher 
 * Sling feature model defines all the dependencies and setup actions to launch Sling
@@ -46,8 +46,8 @@ Model file. Afterwards we will aggregate this into one file: the Sling Feature M
 **Note**: we will use &lt:VERSION> as placeholder for the latest version of Sling Kickstart
 module.
 
-Because we want the latest Sling setup we need to clone the **Sling Starter** module
-to your computer:
+Because we want the latest Sling setup we need to clone the [Sling Starter](https://github.com/apache/sling-org-apache-sling-starter)
+module to your computer:
 
     $ cd <project root folder>
     $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
@@ -59,8 +59,9 @@ Note down the path of the **pwd** output above. We need that for the conversion.
 
 ### Step 2: Run the Provisioning Model Conversion
 
-The **Kickstart** project comes with an additional POM file that allows users to
-convert the Sling Starter Provisiong Models using simple Maven commands:
+The [Siing Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) project comes
+with an additional POM file that allows users to convert the Sling Starter Provisiong
+Models using simple Maven commands:
 
     $ cd <project root folder>
     $ cd sling-org-apache-sling-kickstart
