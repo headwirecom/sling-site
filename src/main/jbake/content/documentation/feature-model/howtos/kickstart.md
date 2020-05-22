@@ -44,49 +44,44 @@ into a Felix container.
 ### Step 1: Download the Kickstart JAR File
 
 The Sling Kickstart Project JAR file can be downloaded here:
-[Sling Kickstart on Apache](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/)
-Select the latest version (like 0.0.1-SNAPSHOT) folder and then the Kickstart Jar file
- and download it.
-From now on we are referencing the file's version (the part between org.apache.sling.kickstart-
-and .jar) as &lt;VERSION>.
-
-### Step 2: Create your Project  Folder
-
-Copy the file into a folder of your choice and double click the jar file
-or go to a shell and navigate to that folder
 
 	$ cd <project root folder>
+    $ mkdir kickstart
+    $ cd kickstart
+    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.2/org.apache.sling.kickstart-0.0.2.jar \
+      > org.apache.sling.kickstart-0.0.2.jar
 
-### Step 3: Run Sling with the Kickstarter
+
+### Step 2: Run Sling with the Kickstarter
 
 Make sure nothing is running on port 8080 as this port will be taken by sling by default. 
 
 We can run the Kickstarter by just executing the JAR file:
 
-	$ java -jar org.apache.sling.kickstart-<VERSION>.jar
+	$ java -jar org.apache.sling.kickstart-0.0.2.jar
 
 Head over to [Sling Home Page](http://localhost:8080/). You will see the regular sling
 startup screen until the server is ready. Once ready you'll see the Welcome screen
 
 ![Sling Home](sling.home.in.browser.png)
 
-### Step 4: Start using Sling
+### Step 3: Start using Sling
 
-Click **Login** link and log in with **admin/admin** and then click on **browse
+Click **Login** link and log in with **admin/admin** and then click on **Browse
 Content** to bring up Composum to see the JCR node tree.
 
 
-### Step 5: Check the status of the running Sling Instance
+### Step 4: Check the status of the running Sling Instance
 
 .. other shell, execute jar with status
 
 To get a status on the Sling service
-then do:
+then use the **status** command:
 
-	$ java -jar org.apache.sling.kickstart-<VERSION>.jar status
+	$ java -jar org.apache.sling.kickstart-0.0.2.jar status
 
 
-Which should return:
+Which returns something aling these lines:
 
 	/127.0.0.1:52516>status
 	/127.0.0.1:52516<OK
@@ -94,13 +89,13 @@ Which should return:
 	Terminate VM, status: 0
 
 
-### Step 6: Shut down Sling
+### Step 5: Shut down Sling
 
-use the stop call in the jar
+use the **stop** comand in the jar
 
 To stop it do:
 
-	$ java -jar org.apache.sling.kickstart-<VERSION>.jar stop
+	$ java -jar org.apache.sling.kickstart-0.0.2.jar stop
 
 
 This will then show the status of the process and unix will also print then
@@ -114,7 +109,7 @@ termination of the process:
 	Terminate VM, status: 0
 	mac:sling-kickstart-run schaefa$ [INFO] Framework stopped
 
-	[1]+  Done                    java -jar org.apache.sling.kickstart-<VERSION>.jar start
+	[1]+  Done                    java -jar org.apache.sling.kickstart-0.0.2.jar start
 
 
 Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit the process. Make sure your Sling process is gone by validating you dont get a response with your browser on port localhost:8080 anymore
@@ -124,11 +119,13 @@ Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit
 * Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
+## Addendum
+
 ### Kickstart Launch options
 
 Finally let's have a look at the launch options:
 
-	$ java -jar org.apache.sling.kickstart-<VERSION>.jar -h
+	$ java -jar org.apache.sling.kickstart-0.0.2.jar -h
 
 
 This will print this:
@@ -181,8 +178,6 @@ two additional options:
 * **-s**: allows to specify your own Sling Feature Model / Archive
 * **-af**: allows to add additional Feature Model / Archives (repeat for each feature file)
 
-## Addendum
-
 ### Build from Source
 
 How to build the Sling Kickstart Project from the source is document in
@@ -193,13 +188,13 @@ the [Kickstart's Readme file](https://github.com/apache/sling-org-apache-sling-k
 The Kickstart Project can launch Sling as a background process also known as service with the
 **start** command:
 
-    $ java -jar org.apache.sling.kickstart-<VERSION>.jar start
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar start
 
 
 If this is done from a Terminal / Shell then the Kickstart project needs to be placed into
 the background. In Unix this is done with appending a '&':
 
-    $ java -jar org.apache.sling.kickstart-<VERSION>.jar start &
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar start &
 
 
 Because these process are not directly accessible the admin can use the **status** and

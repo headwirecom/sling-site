@@ -11,7 +11,7 @@ tags=feature model,sling,kickstart
 * What will you learn: 
 	* Creating your own Sling Instance with a Composite Nodestore
 
-* Time: 20 minutes
+* Time: 30 minutes
 * Skill Level: Intermediate
 * Environment: Windows/Unix
 
@@ -55,18 +55,23 @@ A Feature Archive is a fully self contained ZIP file with the Feature Model file
 We will create such an Archive and the launch it. The startup will be significally faster is the Kickstart
 project / Feature Launcher does not have to download the dependencies.
 
-### Step 1: Checkout the Branch
+### Step 1: Obtain Kickstart Module
 
-Here the [Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) is still used but
-the code is in another branch so we need to check that one out:
+**Note**: if both modules were already obtained by the previous (Create Sling Feature Model / Archive) then
+this entire step can be skipped.
+
+We will obtain the released source from the Apache Repository. If you want to get the latest then have a
+look at the Addendum on how to clone the GitHub repository instead.
+
+We contain the [Release Source of Sling Kickstart](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart):
 
     $ cd <project root folder>
-    $ cd sling-org-apche-sling-kickstart
-    $ git checkout feature/composite-node-store
-    $ git branch
+    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.4/org.apache.sling.kickstart-0.0.4-source-release.zip \
+      > org.apache.sling.kickstart-0.0.4-source-release.zip
+    $ jar -xvf org.apache.sling.kickstart-0.0.4-source-release.zip
+    $ mv org.apache.sling.kickstart-0.0.4 sling-org-apache-sling-kickstart
+    $ cd sling-org-apache-sling-kickstart
 
-
-The last action is just there to confirm that the branch indeed switched.
 
 ### Step 2: Build the Kickstart
 
@@ -76,26 +81,23 @@ We still need to build the Kickstart project as we need the launching ability:
 
 ### Step 3: Run the Initialization Script
 
-First check that there is no **sling** or **launcher** folder. If there is copy them
-away or delete them alltogether.
- 
-We need to start Sling now as we would normally do:
+First We need to start Sling now as we would normally do (seed mode):
 
-    $ ./create_seed_fm.sh
+    $ sh bin/create_seed_fm.sh
 
 
 This will start Sling with these two Feature Models:
 
-1. sling_fm.json: Sling Feature Model without a Nodestore
+1. sling-fm-two-headed.json: Sling Feature Model without a Nodestore
 2. feature-two-headed-seed.json: Feature Model with a single Nodestore
 
-When Sling is down startup up shut it down.
+When Sling is donw with the startup shut it down.
 
 ### Step 4: Run Sling with a Composite Nodstore
 
 Now we are ready to launch Sling for public usage:
 
-    $ ./run_composite_fm.sh
+    $ sh bin/run_composite_fm.sh
 
 This will first create a link of the first nodestore to the expected name
 of **segmentstore**. Then it will make that nodestore read-only. Finally
@@ -140,12 +142,111 @@ see what happens.
 ![Sling Composum Content Prop Add Failed](sling-apps-slingshot-prop-add-failed.png)
 
 
+### Step 6: Update your Project
+
+The next step is to being able to upgrade your project when you release new software.
+To showcase how this works without having to code everything you can
+[download a sample project here](sling-composite-nodestore-project.zip).
+Uncompress and install:
+
+    $ cd <project root folder>
+    $ mkdir sling-composite-nodestore-project
+    $ cd sling-composite-nodestore-project
+    $ jar -xvf <download folder>/sling-composite-nodestore-project.zip
+
+
+The project contains these pieces:
+
+* Two versions of the same code with slight changes
+* Scripts to launch Sling Composite Nodestore
+* Project-local Repository
+
+An **Update Cycle** is done like this:
+
+* Build the samples
+* Start the Sling Seed with Sample v1.0.0 and then the Composite Nodestore
+* Restart the Sling Seed with Sample v1.0.1 and then the Composite Nodestore
+* Check the changes and the read-only state
+
+#### Build the Samples
+
+As of now the samples need to be built from their folders:
+
+    $ cd <project root folder>
+    $ cd sling-composite-nodestore-project
+    $ sh bin/build-samples.sh
+
+#### Start Sling with Initial Version 1.0.0
+
+This is a regular launch of Sling Composite Nodestore together with the
+Sample project version 1.0.0:
+
+    $ cd <project root folder>
+    $ cd sling-composite-nodestore-project
+    $ sh bin/create_seed_fm.sh
+    [stop sling after fully started]
+    $ sh bin/run_composite_fm.sh
+
+After Sling is up and running go to the [Sling Starter Page](http://localhost:8080) and
+login. Then click on the [Browse Content link](http://localhost:8080/bin/browser.html) and
+have a look at **/content** and **/apps**.
+
+**Note**: this time when Sling is restart into the Composite Nodestore mode
+the **launcher** (Sling code base) is deleted before the launch.
+
+#### Start Sling with the Updated Version 1.0.1
+
+To Update Sling we need to launch it first in the **Seed Mode** so that
+the read-only nodestore can be updated before starting the **Composite
+Nodestore**:
+
+    [Shutdown Sling]
+    $ sh bin/create_updated_seed_fm.sh
+    [stop sling after fully started]
+    $ sh bin/run_updated_composite_fm.sh
+
+### Check the Update
+
+We will check the changes made by the Update of the Sample and also to make
+sure that the /libs and /apps folders are still read-only.
+
+These are updates to look for:
+
+**Changes in Nodes**:
+
+* /content/testContentUI/test - added version to description
+* /apps/testAppsUI/install - added version to description
+* /
+
+**New Nodes**:
+
+* /apps/testAppsAllMer - folder and sub nodes added
+* /apps/testContentAllMer - folder and sub nodes added
+
+**Removed Nodes**:
+
+* /apps/testToBe/removed - nodes and parent node are removed during upgrade
+* /content/testToBe/staying - nodes stays even though it was removed from project    
+
+**Attention**: a project normally would not contain content except for an initial
+seed and so it is not expected that content would be deleted. This is only here
+to proof that fact.
+
 ## Mission Accomplished
 
 * Next Up: [Launch Sling with Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ## Addendum
+
+### Scripts
+
+The build and launch scripts are configurable in the **bin/setenv.sh** bash script.
+Just adjust the variables there to your environment and you are good to go.
+
+**Attention**: these scripts are geared towards a launch of an intial custom project and
+then doing an update of that initial project. They can be adjusted by additional additional
+projects, feature models or archives but that is not provided in the scripts.
 
 ### Nodestore Introspection
 
@@ -154,7 +255,7 @@ So we are going to shutdown Sling and then start the nodestore viewer with the p
 the nodestore:
 
     $ <shut down Sling>
-    $ ./explore_repo.sh sling/sling-composite/repository-libs/segmentstore
+    $ sh bin/explore_repo.sh sling/sling-composite/repository-libs/segmentstore
 
 
 This will bring up a Java UI where the user can view the nodes. Keep in mind that children

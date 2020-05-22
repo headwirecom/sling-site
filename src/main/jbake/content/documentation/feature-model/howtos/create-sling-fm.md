@@ -41,37 +41,42 @@ Until Sling is fully converted to Feature Models we will use a Provisioning to
 Feature Model Converter Plugin that will create a Feature Model from each Provisiong
 Model file. Afterwards we will aggregate this into one file: the Sling Feature Model.
 
-### Step 1: Download the Sling Starter Module
+### Step 1: Obtain Sling Starter and Kickstart Modules
 
-**Note**: we will use &lt:VERSION> as placeholder for the latest version of Sling Kickstart
-module.
-
-Because we want the latest Sling setup we need to clone the [Sling Starter](https://github.com/apache/sling-org-apache-sling-starter)
-module to your computer:
+The Sling 12 Starter is not released yet and so have to obtain the project from its GitHub repository:
 
     $ cd <project root folder>
     $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
     $ cd sling-org-apache-sling-starter
     $ pwd
 
+The last step is priting the path to the Sling Starter module.
 
-Note down the path of the **pwd** output above. We need that for the conversion.
+**Note**: to obtain the latest source code from the Kickstart GitHub repository see below in the Addendum. 
+
+The last step is priting the path to the Sling Starter module. Now let's get the
+[Released Source of Sling Kickstart](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart):
+
+    $ cd <project root folder>
+    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.4/org.apache.sling.kickstart-0.0.4-source-release.zip \
+      > org.apache.sling.kickstart-0.0.4-source-release.zip
+    $ jar -xvf org.apache.sling.kickstart-0.0.4-source-release.zip
+    $ mv org.apache.sling.kickstart-0.0.4 sling-org-apache-sling-kickstart
+    $ cd sling-org-apache-sling-kickstart
+
 
 ### Step 2: Run the Provisioning Model Conversion
 
-The [Siing Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) project comes
-with an additional POM file that allows users to convert the Sling Starter Provisiong
-Models using simple Maven commands:
+The Kickstart module provides an additional Maven POM file to convert the Sling Starter provisioning models
+into feature models and then aggregates them into a single feature model:
 
     $ cd <project root folder>
     $ cd sling-org-apache-sling-kickstart
-    $ [OPTIONAL]: git pull
-    $ mvn clean
     $ mvn -f sling-fm-pom.xml install -Dsling.starter.folder=<path to the sling starter module>
 
 
 After the build ran through successfully you will find the **Sling Feature Model file** in the
-folder **target/slingfeature-tmp** as file **feature-sling12.json**.
+folder **target/slingfeature-tmp** as a file **feature-sling12.json**.
 
 ### Step 3: Run the newly created Sling Feature Model
 
@@ -85,9 +90,9 @@ launch Sling:
     $ cd sling-org-apache-sling-kickstart
     $ cp target/slingfeature-tmp/feature-sling12.json ../kickstart-run
     $ mvn clean install
-    $ cp target/org.apache.sling.kickstart-<VERSION>.jar ../kickstart-run
+    $ cp target/org.apache.sling.kickstart-0.0.2.jar ../kickstart-run
     $ cd ../kickstart-run
-    $ java -jar org.apache.sling.kickstart-<VERSION>.jar -s feature-sling12.json
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar -s feature-sling12.json
 
 
 Kickstart was then launched with the **-s option** which takes the path to the Sling Feature Model file
@@ -97,3 +102,11 @@ and uses that one to launch Sling.
 
 * Next Up: [Create a Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+
+## Addendum
+
+To get the Kickstart sources:
+
+    $ cd <project root folder>
+    $ git clone https://github.com/apache/sling-org-apache-sling-kickstart.git
+    $ cd sling-org-apache-sling-kickstart

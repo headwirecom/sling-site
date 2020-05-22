@@ -42,12 +42,9 @@ First we create the project folder:
     $ cd <project root folder>
     $ mkdir sling-feature-launcher
     $ cd sling-feature-launcher
+    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.feature.launcher/1.1.4/org.apache.sling.feature.launcher-1.1.4.jar \
+        org.apache.sling.feature.launcher-1.1.4.jar
 
-
-The Feature Launcher can be downloaded from
-[Feature Launcher Releases](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.feature.launcher/)
-Just select the desired version, go into that folder and download **org.apache.sling.feature.launcher-&lt;VERSION>.jar**
-file.
 
 ### Step 2: Optional: Obtain Extensions
 
@@ -55,10 +52,14 @@ Extension are optional pieces that can added to the Feature Launcher to handle a
 the Content Extension.
 
 Going to the [Sling Folder](https://repository.apache.org/content/groups/public/org/apache/sling/)
-you can select the desired extension. Here we go and select the 
-[Content Extension](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.feature.extension.content/)
-and select the latest version and download the **org.apache.sling.feature.extension.content-&lt;EC-VERSION>.jar**
-file.
+you can select the desired extension.
+In this Howto we are going to use the Content Extension:
+
+    $ cd <project root folder>
+    $ cd sling-feature-launcher
+    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.feature.extension.content/1.0.6//org.apache.sling.feature.extension.content-1.0.6.jar \
+        org.apache.sling.feature.extension.content-1.0.6.jar
+
 
 ### Step 3: Obtain the Sling Feature Model
 
@@ -101,8 +102,8 @@ Execute
     java \
         -Dorg.osgi.service.http.port=8170 \
         -Dorg.apache.felix.http.host=localhost \
-        -cp org.apache.sling.feature.extension.content-<EC-VERSION>.jar
-        -jar org.apache.sling.feature.launcher-<VERSION>.jar \
+        -cp org.apache.sling.feature.extension.content-1.0.6.jar
+        -jar org.apache.sling.feature.launcher-1.1.4.jar \
         -f feature-config-sling12.json \
         -f feature-sling12.json \
         -CC "org.apache.sling.commons.log.LogManager=MERGE_FIRST" \
@@ -119,6 +120,7 @@ Adjusted Logging:
 
 ## Mission Accomplished
 
+* Next Up: [Custom Feature Project with Sling](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ## Addendum

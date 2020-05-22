@@ -45,14 +45,14 @@ The source code to this project can be [downloaded here](sample-feature-archive-
 It is a ZIP file so just uncompress it and have a look at it. These are the main parts:
 
 * a Bundle POM file
-* a **src/main/java** folder for the Java sources
-* a **src/resources/SLING-INF** folder for the Sling content
+    * a **src/main/java** folder for the Java sources
+    * a **src/resources/SLING-INF** folder for the Sling content
 * a **repository** folder for project-local Maven content
 
 This is a straight forward Sling Content Bundle where the code is in its regular place
 but the content is going into the resource folder. Because the folder will go into the
 bundle it is suggested to name it **SLING-INF** (here) or **SLING-CONTENT** or so.
-**Attention**: when the bundle is installed the **SLING-INF** folder is falling away but
+**Attention**: when the bundle is installed the **SLING-INF** folder is removed but
 the name might help when introspecting the bundle ZIP file.
 
 ### Step 2: Use of Project Local Repository
@@ -91,7 +91,13 @@ needs to go up a directory with **..**.
 must be provided otherwise it can be omitted. Also if only plugins are provided then
 the **&lt;repositories/>** can be omitted.
 
-### Step 3: Build and Launch
+### Step 3: Build Sling Feature Archive
+
+Due to its size the Sling Feature Archive is not included in the project local folder.
+In order to make this available please go back to the [Create Sling Feature Archive](create-sling-far.html)
+and build the Sling Feature Archive.
+
+### Step 4: Build and Launch
 
 Build and launching is just a matter of running the Maven build:
 
@@ -119,7 +125,7 @@ Now go back to the [Sling Starter Page](http://localhost:8080) and click on
 done is to build the custom projects first and then add the Maven Id to the **featureArchiveIds**
 in the Slingfeature Launcher.
 
-### Step 4: Launch with the Kickstarter
+### Step 5: Launch with the Kickstarter
 
 The Sling Kickstart JAR file is included in the project-local repository. So we can easily start
 it with:
@@ -129,13 +135,11 @@ it with:
     $ [IGNORE if already done]: mvn clean install
     $ java -jar \
       repository/org/apache/sling/org.apache.sling.kickstart/0.0.3-SNAPSHOT/org.apache.sling.kickstart-0.0.3-SNAPSHOT.jar \
-      -s repository/org/apache/sling/org.apache.sling.feature.archive.starter/0.0.2/org.apache.sling.feature.archive.starter-0.0.2-sling12archive.far \
-      -f target/sample-feature-archive-project-1.0.0-SNAPSHOT-samplefararchive.far
+      -af target/sample-feature-archive-project-1.0.0-samplefararchive.far
 
 
 Additional project can be added by adding a **-f** option for each additional project.
 
 ## Mission Accomplished
 
-* Next Up: [Custom Feature Project with Sling](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
