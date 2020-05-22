@@ -2,6 +2,7 @@ title=Start Sling with a Custom Project
 type=page
 status=published
 tags=feature model,sling,feature launcher
+note=Sample project can be found in the Sling-Samples project under feature-model-samples: sling-with-custom-project-sample
 ~~~~~~
 
 ### How-To Overview
@@ -41,7 +42,7 @@ a Feature Archive. Finally we will launch it together with Sling.
 
 ### Step 1: Create a Feature Model Project
 
-The source code to this project can be [downloaded here](sample-feature-archive-project-1.0.0.zip).
+The source code to this project can be [downloaded here](sling-with-custom-project-sample.zip).
 It is a ZIP file so just uncompress it and have a look at it. These are the main parts:
 
 * a Bundle POM file

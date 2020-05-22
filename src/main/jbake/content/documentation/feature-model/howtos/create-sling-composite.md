@@ -2,6 +2,7 @@ title=Create a Sling with Composite Nodestore
 type=page
 status=published
 tags=feature model,sling,kickstart
+note=Sample project can be found in the Sling-Samples project under feature-model-samples: create-sling-composite-sample
 ~~~~~~
 
 ### How-To Overview
@@ -146,7 +147,7 @@ see what happens.
 
 The next step is to being able to upgrade your project when you release new software.
 To showcase how this works without having to code everything you can
-[download a sample project here](sling-composite-nodestore-project.zip).
+[download a sample project here](create-sling-composite-sample.zip).
 Uncompress and install:
 
     $ cd <project root folder>
