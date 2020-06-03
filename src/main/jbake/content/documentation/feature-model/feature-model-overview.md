@@ -1,4 +1,4 @@
-title=Feature Model Documentation Overview
+title=Feature Model
 type=page
 status=published
 tags=feature model,osgi,project,guide,howtos
@@ -6,7 +6,24 @@ tags=feature model,osgi,project,guide,howtos
 
 ## A How-To Guide to Feature Models
 
-**RR: note:** we should write a better intro distilling what a feature model is from [1] and add a 'for a more detailed description about the purpose of a feature model read [1]
+The Sling Feature Model[1] is a replacement for the Sling Provisioning Model. In general, both models accomplish the same goal
+of defining and assembling an OSGi-based application or part of an application. However, the Feature Model provides a more
+robust method of application definition and assembly that isn't tied to Sling. It specifies a number of new concepts that
+address end-to-end application packaging that include support for bundles, configuration, framework properties, capabilities,
+requirements and custom artifacts. 
+
+### Key Concepts
+
+* [Features](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/features.md) - The central entity of the 
+   Feature Model used to logically package and group metadata, configuration, bundles and 
+   extensions that represent a particular piece of system functionality. 
+* [Feature Extension](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/extensions.md) - An extension
+   point allowing users to customize the Feature Model to support new capabilities. 
+* [Feature Archives](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/feature-archives.md) - Packages one
+   or more features and dependencies to simplify the distribution of a complete application.
+* [Feature Reference Files](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/feature-ref-files.md) - A
+   text descriptor file with a list of features.
+* [Feature Aggregation](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/aggregation.md) - GG: Need some help here
 
 ## Exploring Feature Models by Example
 
@@ -29,5 +46,4 @@ Want to know more? Have a look at the readme files of the projects making up the
 * [Feature Aggregation](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/aggregation.md)
 * [SlingFeature Maven Plugin](https://github.com/apache/sling-slingfeature-maven-plugin)
 * [Feature Launcher](https://github.com/apache/sling-org-apache-sling-feature-launcher)
-
-**RR: question:** should there be a link to the readme of the kickstarter as well? 
+* [Kickstart Launcher](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md)
