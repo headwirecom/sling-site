@@ -12,7 +12,7 @@ as that may be the easier name to use throughout the doc.
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-#### What we will exlpore: 
+#### What we will explore: 
 
 * We are starting up Apache Sling with the Kickstarter to explore launching
   with feature models

@@ -20,6 +20,15 @@ is more robust and is not coupled to Sling. It addresses application packaging c
 * Feature Reference Files - A text descriptor file with a list of features.
 * Feature Aggregation - GG: Need some help here
 
+### About this How-To
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+This how-to is designed to be a progressive tutorial in which each how-to builds on the previous. It's recommended
+that you start on the first and work your way through them consecutively. 
+</div>
+
+
 ## Exploring Feature Models by Example
 
 * [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
