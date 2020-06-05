@@ -10,7 +10,7 @@ tags=feature model,sling,kickstart
 
 #### What we'll explore: 
 
-* We'll start Sling with the Kickstarter and explore the Feature Model
+* We'll start Sling with the Kickstart Launcher (a.k.a kickstarter) and explore the Feature Model
 
 #### What you should know: 
 
@@ -36,8 +36,8 @@ The JAR file was fairly large in size and weighed in at ~70MB. If the Sling appl
 the uber JAR would have to be rebuilt.
 
 The Kickstarter provides a method to start Sling using a new application packaging/assembly approach known as
-the _Feature Model_.  By default, the Kickstarter is configured with a minimum set of feature definitions to allow 
-for a light weight Sling instance (~3MB).  If additional customizations to your Sling application are required, simply 
+the _Feature Model_.  By default, the Kickstarter is configured with a minimum set of feature definitions to 
+produce a lightweight Sling application.  If additional customizations to your Sling application are required, simply 
 define additional features based on your requirements. Any additional features will then be pulled from a Maven repository.
 
 ### How does the Kickstarter work
@@ -52,7 +52,7 @@ Let's try this out!
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-At the time of this writing, the latest Kickstarter version was`0.0.2`. Adjust the commands below to reflect the 
+At the time of this writing, the latest Kickstarter version was `0.0.2`. Adjust the commands below to reflect the 
 version you downloaded.
 
 </div>
@@ -138,21 +138,25 @@ Alternatively, you can stop Sling by hitting **<Ctrl+C>**.
 </div>
 
 Did we succeed in making you more curious about the world of Feature Models? 
-The next how-to in this series dives into Sling Feature Models a bit more to help
-you with that. You can also read a bit more about the Kickstarter on this page if you
-feel you need a bit more information.
+If you stay with us, you'll learn how to customize Sling by creating your own
+Feature Models.
+
+If you still want to learn a bit more about the Kickstarter, stay on this page
+and keeping reading.
 
 * Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 ## A couple additional things to explore
 
-### Kickstart Launch options
+### Kickstarter options
 
-Finally let's have a look at the launch options:
+Let's take a look at the full set of Kickstarter options using the **-h** parameter.:
 
 	$ java -jar org.apache.sling.kickstart-0.0.2.jar -h
 
+
+GG: Let's use a table here or some other method document the parameters.
 
 This will print this:
 
