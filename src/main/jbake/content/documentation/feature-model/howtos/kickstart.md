@@ -4,18 +4,13 @@ status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
-**RR: note** we are a bit all over the place with kickstart, kickstarter, kickstart launcher, etc. We probably have to find some common language about that, maybe
-use 'Kickstart Launcher (kickstarter)' first and then continue using kickstarter
-as that may be the easier name to use throughout the doc.  
-
 ### About this How-To
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-#### What we will explore: 
+#### What we'll explore: 
 
-* We are starting up Apache Sling with the Kickstarter to explore launching
-  with feature models
+* We'll start Sling with the Kickstarter and explore the Feature Model
 
 #### What you should know: 
 
@@ -29,122 +24,106 @@ Back To: [Feature Model Home](/documentation/feature-model/feature-model-overvie
 
 ### Prerequisites
 
-In order to follow through this HowTo you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
-* Command Line with Bash
+* Bash shell
 
-### What is the Kickstarter
+### What's the Kickstarter
 
-Traditionally Sling has been started with the rather larger Sling Starter JAR file clocking in at about 70MB for Sling-11 - the starter is built with the provisioning model. 
+Prior to the Kickstarter, the Sling application was assembled into an uber JAR using the Provisioning Model. 
+The JAR file was fairly large in size and weighed in at ~70MB. If the Sling application required a new bundle,
+the uber JAR would have to be rebuilt.
 
-Kickstart provides the same command line options available through the launcher
-to start Sling but relies on a feture model. The initial download for the kickstarter clocks in at about 3MB. Kickstart itself relies on the feature launcher, a more 
-barebones tool to launch with a feature model.
+The Kickstarter provides a method to start Sling using a new application packaging/assembly approach known as
+the _Feature Model_.  By default, the Kickstarter is configured with a minimum set of feature definitions to allow 
+for a light weight Sling instance (~3MB).  If additional customizations to your Sling application are required, simply 
+define additional features based on your requirements. Any additional features will then be pulled from a Maven repository.
 
-Kickstart comes bundled with a basic feature model to start Apache Sling. You can also
-provide your own feature model for Sling and provide a set of additional feature models to run your application on top of Sling.
+### How does the Kickstarter work
 
-While Kickstarting Apache Sling all necessary artefacts are fetched from your local and the public maven repository. 
+The [Kickstarter](https://github.com/apache/sling-org-apache-sling-kickstart) uses the Feature Model Launcher to 
+start a Sling instance. It sets up a control port to manage the instance and provides default values to start Sling.
+The Feature Launcher then donwloads the necessary dependencies and installs them into the OSGi container. 
 
-### Explanation on what will happen
+Let's try this out!
 
-[Sling Kickstart](https://github.com/apache/sling-org-apache-sling-kickstart) uses the
-Feature Model Launcher to run a Sling instance for you, sets up a control port to manage
-the instance and provides default values so that Sling starts just fine without any parameters.
-The Feature Launcher will then donwload all the necessary dependencies and install them
-into a Felix container. 
+### Step 1: Download the Kickstarter 
 
-Let's go try this out!
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-### Step 1: Download the Kickstart JAR File
-
-**RR: question:** should we not point them to https://sling.apache.org/downloads.cgi and have them download the latest release for kickstart? 
-
-The Sling Kickstart Project JAR file can be downloaded here:
-
-	$ cd <project root folder>
-    $ mkdir kickstart
-    $ cd kickstart
-    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.2/org.apache.sling.kickstart-0.0.2.jar \
-      > org.apache.sling.kickstart-0.0.2.jar
-
-
-### Step 2: Run Sling with the Kickstarter
-
-Make sure nothing is running on port 8080 as this port will be taken by sling by default. 
-
-We can run the Kickstarter by just executing the JAR file:
-
-	$ java -jar org.apache.sling.kickstart-0.0.2.jar
-
-Head over to [Sling Home Page](http://localhost:8080/). You will see the regular sling
-startup screen until the server is ready. Once ready you'll see the Welcome screen, 
-
-<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
-
-- The first time startup with kickstarter may take a bit longer as your local maven repository
-may not contain the artefacts defined in the feature model. 
-- If you think something is not
-right you may want to try again and use the **-v** option to get a verbose output from
-the kickstarter process.
+At the time of this writing, the latest Kickstarter version was`0.0.2`. Adjust the commands below to reflect the 
+version you downloaded.
 
 </div>
 
-![Sling Home](sling.home.in.browser.png)
+Visit the [Apache Sling Downloads](https://sling.apache.org/downloads.cgi) page and download the _Kickstart Project_
+bundle. 
+
+Then, create a working directory for the Kickstarter and copy the bundle to this location. You can name this 
+directory anything you like.
+
+    $ mkdir kickstarter
+    $ cd kickstarter
+    $ cp /some/download/path/org.apache.sling.kickstart-0.0.2.jar .
+
+### Step 2: Start Sling with the Kickstarter
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+ Make sure nothing is listening on port 8080 as this port will be used by Sling.
+
+</div>. 
+
+Start the Kickstarter.
+
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar
+
+Next, open a browser and visit [http://localhost:8080/](http://localhost:8080/).
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+- The Kickstarter will take some time to start the first time since the Feature Model needs to populate your local
+  Maven repository with any missing artifacts. 
+- If you run into any issues, try re-running the Kickstarter with **-v** option.
+
+</div>
 
 ### Step 3: Start using Sling
 
-Click **Login** link and log in with **admin/admin** and then click on **Browse
-Content** to bring up Composum to see the JCR node tree.
+Click the **Login** link and log in with **admin/admin**. 
 
 
-### Step 4: Check the status of the running Sling Instance
+### Step 4: Check the status of Sling
 
-You can always check the status of a running sling instance by executing the kickstart
-jar file with the command **status** in the folder where you started your instance.
+Open a new terminal window and navigate to the same Kickstarter working directory that
+was used to start Sling.
 
-To get a status on the Sling service open up an additional terminal window in the same
-folder where you placed your kickstart jar file in Step 1 and then execute the **status** command:
+Now, run the Kickstarter JAR again with the **status** command to view the current
+status of your Sling instance.
 
-	$ java -jar org.apache.sling.kickstart-0.0.2.jar status
-
-
-This should return something similar to these lines:
-
-	/127.0.0.1:52516>status
-	/127.0.0.1:52516<OK
-	Sent 'status' to /127.0.0.1:52481: OK
-	Terminate VM, status: 0
-
-If your sling instance is not running you should see
-
-	No Apache Sling running at /127.0.0.1:52244
-	Terminate VM, status: 3
-
-### Step 5: Shut down Sling
-
-use the **stop** comand in the jar
-
-To stop it do:
-
-	$ java -jar org.apache.sling.kickstart-0.0.2.jar stop
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar status
 
 
-This will then show the status of the process. 
-On unix systems you are also informed about the termination of the process in the
-terminal window where you started sling:
+If your Sling instance is running, you should see output similar to this:
 
-	/127.0.0.1:52520>stop
-	/127.0.0.1:52520<OK
-	Stop Application
-	Sent 'stop' to /127.0.0.1:52481: OK
-	Terminate VM, status: 0
-	mac:sling-kickstart-run schaefa$ [INFO] Framework stopped
+    /127.0.0.1:52516>status
+    /127.0.0.1:52516<OK
+    Sent 'status' to /127.0.0.1:52481: OK
+    Terminate VM, status: 0
 
-	[1]+  Done                    java -jar org.apache.sling.kickstart-0.0.2.jar start
+If your sling instance is not running, you should see:
 
-Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit the process. Make sure your Sling process is gone by validating you dont get a response with your browser on port localhost:8080 anymore
+    No Apache Sling running at /127.0.0.1:52244
+    Terminate VM, status: 3
+
+### Step 5: Stop Sling with the Kickstater
+
+Run the Kickstarter JAR again and specify the **stop** command.
+
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar stop
+
+Alternatively, you can stop Sling by hitting **<Ctrl+C>**.
 
 ## Mission Accomplished
 
@@ -153,13 +132,13 @@ Alternative: We can stop Sling by hitting **Ctrl-C** on the command line to exit
 
 #### What we learned: 
 
-* We successully started up Apache Sling with the Kickstarter and had our first
-  brush up with feature models
+* We successully started Sling with the Kickstarter and had our first
+  glimpse of the Feature Model.
 
 </div>
 
-Did we succeed in making you more curious about the world of feature models? 
-The next how to in this series dives into Sling Feature Models a bit more to help
+Did we succeed in making you more curious about the world of Feature Models? 
+The next how-to in this series dives into Sling Feature Models a bit more to help
 you with that. You can also read a bit more about the Kickstarter on this page if you
 feel you need a bit more information.
 
