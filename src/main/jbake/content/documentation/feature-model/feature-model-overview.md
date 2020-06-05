@@ -13,10 +13,10 @@ is more robust and is not coupled to Sling. It addresses application packaging c
 
 ### Key Concepts
 
-* Features- The central entity of the Feature Model used to logically package and group metadata, configuration, bundles and 
-  extensions that represent a particular piece of system functionality. 
-* Feature Extension - An extension point allowing users to customize the Feature Model to support new capabilities. 
-* Feature Archives - Packages one or more features and dependencies to simplify the distribution of a complete application.
+* Features - Central entity of the Feature Model used to logically group metadata, configuration, bundles and 
+  extensions to represent a system module or subsystem. 
+* Feature Extension - An extension point for adding new capabilities to the Feature Model. 
+* Feature Archives - Packages one or more features and dependencies to simplify the distribution of an application.
 * Feature Reference Files - A text descriptor file with a list of features.
 * Feature Aggregation - GG: Need some help here
 
