@@ -33,7 +33,8 @@ In order to follow this how-to you'll need the following on your computer:
 
 Prior to the Kickstarter, the Sling application was assembled into an uber JAR using the Provisioning Model. 
 The JAR file was fairly large in size and weighed in at ~70MB. If the Sling application required a new bundle,
-the uber JAR would have to be rebuilt.
+the uber JAR would have to be rebuilt. The Kickstarter was designed to solve this problem as well as to streamline
+the application packaging process.
 
 The Kickstarter provides a method to start Sling using a new application packaging/assembly approach known as
 the _Feature Model_.  By default, the Kickstarter is configured with a minimum set of feature definitions to 
@@ -44,7 +45,7 @@ define additional features based on your requirements. Any additional features w
 
 The [Kickstarter](https://github.com/apache/sling-org-apache-sling-kickstart) uses the Feature Model Launcher to 
 start a Sling instance. It sets up a control port to manage the instance and provides default values to start Sling.
-The Feature Launcher then donwloads the necessary dependencies and installs them into the OSGi container. 
+The Feature Launcher then downloads the necessary dependencies and installs them into the OSGi container. 
 
 Let's try this out!
 
@@ -85,7 +86,7 @@ Next, open a browser and visit [http://localhost:8080/](http://localhost:8080/).
 
 - The Kickstarter will take some time to start the first time since the Feature Model needs to populate your local
   Maven repository with any missing artifacts. 
-- If you run into any issues, try re-running the Kickstarter with **-v** option.
+- If you run into any issues, try re-running the Kickstarter with the **-v** option.
 
 </div>
 
@@ -123,7 +124,7 @@ Run the Kickstarter JAR again and specify the **stop** command.
 
     $ java -jar org.apache.sling.kickstart-0.0.2.jar stop
 
-Alternatively, you can stop Sling by hitting **<Ctrl+C>**.
+Alternatively, you can stop Sling by hitting **<CTRL+C>**.
 
 ## Mission Accomplished
 
@@ -132,7 +133,7 @@ Alternatively, you can stop Sling by hitting **<Ctrl+C>**.
 
 #### What we learned: 
 
-* We successully started Sling with the Kickstarter and had our first
+* We successfully started Sling with the Kickstarter and had our first
   glimpse of the Feature Model.
 
 </div>
@@ -142,92 +143,66 @@ If you stay with us, you'll learn how to customize Sling by creating your own
 Feature Models.
 
 If you still want to learn a bit more about the Kickstarter, stay on this page
-and keeping reading.
+and keep reading.
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
 * Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
+</div>
+
 ## A couple additional things to explore
 
-### Kickstarter options
+### Kickstarter commands and options
 
-Let's take a look at the full set of Kickstarter options using the **-h** parameter.:
+The generalized command for the Kickstarter is as follows:
 
-	$ java -jar org.apache.sling.kickstart-0.0.2.jar -h
+    $ java -jar <jarfile> [options] [command]
 
-
-GG: Let's use a table here or some other method document the parameters.
-
-This will print this:
-
-	Usage: java -jar <Sling Kickstarter JAR File> [-hnv] [-a=<address>]
-	                                              [-c=<slingHome>] [-f=<logFile>]
-	                                              [-i=<launcherHome>]
-	                                              [-j=<controlAddress>]
-	                                              [-l=<logLevel>] [-p=<port>]
-	                                              [-r=<contextPath>]
-	                                              [-s=<mainFeatureFile>]
-	                                              [-af=<additionalFeatureFile>]...
-	                                              [-D=<String=String>]... [COMMAND]
-	Apache Sling Kickstart
-	      [COMMAND]             Optional Command for Server Instance Interaction, can be
-	                              one of: 'start', 'stop', 'status' or 'threads'
-	  -a, --address=<address>   the interface to bind to (use 0.0.0.0 for any)
-	      -af, --additionalFeature=<additionalFeatureFile>
-	                            additional feature files
-	  -c, --slingHome=<slingHome>
-	                            the sling context directory (default sling)
-	  -D, --define=<String=String>
-	                            sets property n to value v. Make sure to use this option
-	                              *after* the jar filename. The JVM also has a -D option
-	                              which has a different meaning
-	  -f, --logFile=<logFile>   the log file, "-" for stdout (default logs/error.log)
-	  -h, --help                Display the usage message.
-	  -i, --launcherHome=<launcherHome>
-	                            the launcher home directory (default launcher)
-	  -j, --control=<controlAddress>
-	                            host and port to use for control connection in the
-	                              format '[host:]port' (default 127.0.0.1:0)
-	  -l, --logLevel=<logLevel> the initial loglevel (0..4, FATAL, ERROR, WARN, INFO,
-	                              DEBUG)
-	  -n, --noShutdownHook      don't install the shutdown hook
-	  -p, --port=<port>         the port to listen to (default 8080)
-	  -r, --context=<contextPath>
-	                            the root servlet context path for the http service
-	                              (default is /)
-	  -s, --mainFeature=<mainFeatureFile>
-	                            main feature file (file path or URL) replacing the
-	                              provided Sling Feature File
-	  -v, --verbose             the feature launcher is verbose on launch
-	Copyright(c) 2020 The Apache Software Foundation.
+It supports three commands: `stop`, `start` and `status` as well as a number of options. For 
+a full list of available options, run the Kickstarter with the **-h** option.
 
 
-Most of the options are the same as for the **Sling Starter** project with these
-two additional options:
-
-* **-s**: allows to specify your own Sling Feature Model / Archive
-* **-af**: allows to add additional Feature Model / Archives (repeat for each feature file)
-
-### Run as a Background Process / Service
-
-**RR: question** what's the real difference between using start and using no command?
-
-The Kickstart Project can launch Sling as a background process also known as service with the
-**start** command:
-
-    $ java -jar org.apache.sling.kickstart-0.0.2.jar start
-
-
-If this is done from a Terminal / Shell then the Kickstart project needs to be placed into
-the background. In Unix this is done with appending a '&':
-
-    $ java -jar org.apache.sling.kickstart-0.0.2.jar start &
+| Short Option  | Long Option                                   | Description                                                                  |
+| ------------- | --------------------------------------------- | ---------------------------------------------------------------------------- |
+| -a            | --address=&lt;address&gt;                     | Address to bind to (default `0.0.0.0`)                                       |
+| -af           | --additionalFeature=&lt;additionalFeature&gt; | Define additional feature files. Use multiple options for multiple features. |
+| -c            | --slingHome=&lt;slingHome&gt;                 | Sling context directory (default `sling`)                                    |
+| -D            | --define=&lt;key=value&gt;                    | Sets property key to value. This is different than the -D JVM option. This must come after the jar filename. |
+| -f            | --logFile=&lt;logFile&gt;                     | Log file or "-" for stdout (default `logs/error.log`)                        |
+| -h            | --help                                        | Display usage                                                                |
+| -i            | --launcherHome=&lt;launcherHome&gt;           | Launcher home directory (default `launcher`).                                |
+| -j            | --control=&lt;controlAddress&gt;              | Host and port to use for control connection. Format `[host:]port`             
+| -l            | --logLevel=&lt;logLevel&gt;                   | Initial loglevel (0..4, FATAL, ERROR, WARN, INFO, DEBUG)                     |
+| -n            | --noShutdownHook                              | Don't install the shutdown hook.                                             |
+| -p            | --port=&lt;port&gt;                           | Port to listen to (default `8080`)                                           |
+| -r            | --context=&lt;contextPath&gt;                 | Root servlet context path for the HTTP service (default `/`)                 |
+| -s            | --mainFeature=&lt;mainFeatureFile&gt;         | Main feature file (file path or URL). This will replace the default file used by Sling. |
+| -v            | --verbose                                     | Start the launcher with additional information.                              |
 
 
-Because these process are not directly accessible the admin can use the **status** and
-**stop** command as mentioned in **Step 6 and 7**.
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-### Build from Source
+For compatibility, most of the options are the same as the 
+[Sling Starter](https://github.com/apache/sling-org-apache-sling-starter)  project. The
+options below are specific to the Kickstarter. 
 
-How to build the Sling Kickstart Project from source is document in
-the [Kickstart's Readme file](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md)
+* **-s**: Replaces the main default Sling feature with your own Feature Model. 
+* **-af**: Defines additional Feature Models (use multuple **-af** options for multiple features)
+
+</div>
+
+
+### Build the Kickstarter from source
+
+If you're interested in building the Kickstarter from source, take a look at 
+the [GitHub](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md) project.
+
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+* Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+
+</div>
