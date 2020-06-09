@@ -1,36 +1,40 @@
-title=Create your own Sling Archive for the Kickstart 
+title=Create your own Sling Archive for the Kickstarter
 type=page
 status=published
-tags=feature model,sling,kickstarter
+tags=feature model,sling,kickstarter,feature archive
 ~~~~~~
 
-### How-To Overview
+### About this How-To
 
-<div style="background: lightblue;">
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-* What will you learn: 
-	* Creating your own Sling Feature Archive with the latest from Sling
+#### What we'll explore: 
 
-* Time: 20 minutes
+* Create a custom Sling Feature Archive using the latest version of Sling
+
+#### What you should know: 
+
 * Skill Level: Intermediate
 * Environment: Windows/Unix
+* Time: 20 minutes
 
 </div>
 
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+Back To: [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
 
 ### Prerequisites
 
-In order to follow through this how-to you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
 * Maven 3
-* Command Line with Bash
-* Worked through *Create your own Sling Feature Model for the Kickstart*
+* Bash shell
+* Completed [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
 
-### What is the Sling Feature Archive
 
-* a feature archive (FAR) is a ZIP file containing the feature model file together with all dependencies
+### What's the Sling Feature Archive
+
+A Feature Archive (FAR) is a ZIP file containing the Feature Model along with its dependencies.
 
 ### Explanation on what will happen
 
