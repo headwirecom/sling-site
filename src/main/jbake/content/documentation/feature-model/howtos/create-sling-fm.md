@@ -1,112 +1,142 @@
-title=Create your own Sling Feature Model for the Kickstart 
+title=Create your own Sling Feature Model for the Kickstarter 
 type=page
 status=published
 tags=feature model,sling,kickstart
 ~~~~~~
 
-### How-To Overview
+### About this How-To
 
-<div style="background: lightblue;">
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-* What will you learn: 
-	* Creating your own Sling Feature Model with the latest from Sling
+#### What we'll explore: 
 
-* Time: 20 minutes
-* Skill Level: Intermediate
+* We'll convert the Sling Starter project to a Feature Model using a Maven plugin
+* We'll visit our old friend, the Kickstarter, to start Sling using our Feature Model
+
+#### What you should know: 
+
+* Skill Level: Intermediate 
 * Environment: Windows/Unix
+* Time: 20 minutes
 
 </div>
 
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+Back To: [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
 
 ### Prerequisites
 
-In order to follow through this HowTo you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
 * Maven 3
-* Command Line with Bash
-* Worked through *Get up and running with Sling and the Kickstarter*
+* Bash shell
+* Completed [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
 
-### What is the Sling Feature Model
 
-* a [feature model](https://github.com/apache/sling-org-apache-sling-feature/blob/master/readme.md) is a description of all the OSGi dependency and configurations
-* feature models can be aggregated into a single feature model
-* feature model(s) can be started with the Sling Feature Launcher 
-* Sling feature model defines all the dependencies and setup actions to launch Sling
+### What's the Sling Feature Model
 
-### Explanation on what will happen
+The Sling Feature Model provides a robust approach for configuring and assembling OSGi-based applications. 
+Here are some of its high-level capabilities:
 
-Until Sling is fully converted to Feature Models we will use a Provisioning to
-Feature Model Converter Plugin that will create a Feature Model from each Provisiong
-Model file. Afterwards we will aggregate this into one file: the Sling Feature Model.
+* Declarative description of an entire application or part of an application 
+* Support for aggregating Feature Models into a single Feature model for simpler packaging and distribution
+* Easy application startup through the Feature Launcher
 
-### Step 1: Obtain Sling Starter and Kickstart Modules
 
-The Sling 12 Starter is not released yet and so have to obtain the project from its GitHub repository:
+### Create a Feature Model
 
-    $ cd <project root folder>
-    $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
-    $ cd sling-org-apache-sling-starter
-    $ pwd
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-The last step is priting the path to the Sling Starter module.
+**Note:** At the time of this writing, the Feature Model is not officialy used by Sling.
+Until Sling is fully converted to the Feature Model, we'll have to use the
+ _Provisioning to Feature Model Converter Plugin_. The plugin will create a Feature Model 
+from each Provisioning Model file. The plugin will then assemble all the Feature Models
+into a single Feature Model file using the Feature Aggregate.
 
-**Note**: to obtain the latest source code from the Kickstart GitHub repository see below in the Addendum. 
+</div>
 
-The last step is priting the path to the Sling Starter module. Now let's get the
-[Released Source of Sling Kickstart](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart):
 
-    $ cd <project root folder>
-    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.4/org.apache.sling.kickstart-0.0.4-source-release.zip \
-      > org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ jar -xvf org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ mv org.apache.sling.kickstart-0.0.4 sling-org-apache-sling-kickstart
-    $ cd sling-org-apache-sling-kickstart
+### Step 1: Get Sling Starter and the Kickstarter projects
+
+Start by creating a directory called `myfeaturemodel`. We'll use this directory as our
+project workspace.
+
+    $ mkdir myfeaturemodel
+
+We'll add two projects to this workspace:
+
+* The Sling Starter source code
+* The Sling Kickstarter source code
+
+        $ cd myfeaturemodel
+        $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
+        $ git clone https://github.com/apache/sling-org-apache-sling-kickstart.git
+
+Your workspace should now look like this:
+
+    $ ls -l
+    drwxr-xr-x  15 user group 480 Jun  8 16:16 sling-org-apache-sling-kickstart
+    drwxr-xr-x  13 user group 416 Jun  8 16:10 sling-org-apache-sling-starter
 
 
 ### Step 2: Run the Provisioning Model Conversion
 
-The Kickstart module provides an additional Maven POM file to convert the Sling Starter provisioning models
-into feature models and then aggregates them into a single feature model:
+The Kickstarter provides a Maven POM file called `sling-fm-pom.xml`  that converts the Sling Starter Provisioning Models
+to Feature Models. It then aggregates them into a single Feature Model.
 
-    $ cd <project root folder>
     $ cd sling-org-apache-sling-kickstart
-    $ mvn -f sling-fm-pom.xml install -Dsling.starter.folder=<path to the sling starter module>
+    $ mvn -f sling-fm-pom.xml install -Dsling.starter.folder=../sling-org-apache-sling-starter 
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+Once the build is complete, you'll find a Feature Model file at
+`sling-org-apache-sling-kickstart/target/slingfeature-tmp/feature-sling12.json`.
+
+</div>
 
 
-After the build ran through successfully you will find the **Sling Feature Model file** in the
-folder **target/slingfeature-tmp** as a file **feature-sling12.json**.
+Before continuing, run one more Maven build in this directory as we will need a copy of the Kickstarter JAR in the next
+section.
 
-### Step 3: Run the newly created Sling Feature Model
-
-Because this Sling Feature Model is not in the default place (src/main/resources) we need to launch
-the **Sling Kickstart** with additional options. So we create a new Kickstart Execution folder and
-then copy the Feature Model there, build the Kickstart JAR file and copy there as well. Finally we will
-launch Sling:
-
-    $ cd <project root folder>
-    $ mkdir kickstart-run
-    $ cd sling-org-apache-sling-kickstart
-    $ cp target/slingfeature-tmp/feature-sling12.json ../kickstart-run
     $ mvn clean install
-    $ cp target/org.apache.sling.kickstart-0.0.2.jar ../kickstart-run
-    $ cd ../kickstart-run
-    $ java -jar org.apache.sling.kickstart-0.0.2.jar -s feature-sling12.json
 
 
-Kickstart was then launched with the **-s option** which takes the path to the Sling Feature Model file
-and uses that one to launch Sling. 
+### Step 3: Run Sling using the Feature Model
+
+Now that we have a Feature Model file for Sling and a Kickstarter JAR, we are ready to create a new directory
+to execute Sling using the Kickstarter and the Feature Model we just created.
+
+Begin, by changing into the parent workspace (`myfeaturemodel`) and create a new directory to run the Kickstarter.
+Then, copy the Feature Model file and Kickstarter JAR.
+
+    $ cd ..
+    $ mkdir kickstart-run && cd kickstart-run
+    $ cp ../sling-org-apache-sling-kickstart/target/slingfeature-tmp/feature-sling12.json .
+    $ cp ../sling-org-apache-sling-kickstart/target/org.apache.sling.kickstart-0.0.3-SNAPSHOT.jar .
+
+Lastly, let's start Sling using the Feature Model.
+
+    $ java -jar org.apache.sling.kickstart-0.0.3-SNAPSHOT.jar -s feature-sling12.json
+
 
 ## Mission Accomplished
 
-* Next Up: [Create a Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-## Addendum
+#### What we learned: 
 
-To get the Kickstart sources:
+* Learned that the _Provisioning to Feature Model Converter Plugin_ can be used to convert Provisioning Models to Feature Models
+* Converted the Provisioning Models in the Sling Starter project to a single Feature Model
+* Started Sling using the newly created Feature Model file with the Kickstarter
 
-    $ cd <project root folder>
-    $ git clone https://github.com/apache/sling-org-apache-sling-kickstart.git
-    $ cd sling-org-apache-sling-kickstart
+</div>
+
+If you stick with us a bit more, we'll build on what you learned and show you how to make a custom Sling Archive with
+the Kickstarter.
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+* Next Up: [Create your own Sling Archive for the Kickstart](/documentation/feature-model/howtos/create-sling-far.html)
+* Back To: [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
+
+</div>

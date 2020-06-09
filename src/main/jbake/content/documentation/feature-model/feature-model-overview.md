@@ -50,4 +50,4 @@ Want to know more? Have a look at the readme files of the projects making up the
 * [Feature Aggregation](https://github.com/apache/sling-org-apache-sling-feature/blob/master/docs/aggregation.md)
 * [SlingFeature Maven Plugin](https://github.com/apache/sling-slingfeature-maven-plugin)
 * [Feature Launcher](https://github.com/apache/sling-org-apache-sling-feature-launcher)
-* [Kickstart Launcher](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md)
+* [Kickstarter](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md)
