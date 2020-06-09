@@ -43,42 +43,59 @@ it's designed to streamline the configuration and packaging of OSGi-based applic
 
 In this how-to we'll create a Feature Archive and start it using our trusty Kickstarter.
 
-### Step 1: Obtain Sling Starter and Kickstart Modules
 
-**Note**: if both modules were already obtained by the previous (Create Sling Feature Model) then this entire
-step can be skipped.
+### Step 1: Get Sling Starter and the Kickstarter projects
 
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-The Sling 12 Starter is not released yet and so have to obtain the project from its GitHub repository:
+**NOTE**: This step can be skipped if you completed the previous how-to: 
+[Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
 
-    $ cd <project root folder>
-    $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
-    $ cd sling-org-apache-sling-starter
-    $ pwd
+</div>
 
-The last step is printing the path to the Sling Starter module.
+Start by creating a directory called `myfeaturemodel`. We'll use this directory as our
+project workspace.
 
-**Note**: to obtain the latest source code from the Kickstart GitHub repository see below in the Addendum. 
+    $ mkdir myfeaturemodel
 
-Now let's get the [Source Release of Sling Kickstart](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart):
+We'll add two projects to this workspace:
 
-    $ cd <project root folder>
-    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.4/org.apache.sling.kickstart-0.0.4-source-release.zip \
-      > org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ jar -xvf org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ mv org.apache.sling.kickstart-0.0.4 sling-org-apache-sling-kickstart
-    $ cd sling-org-apache-sling-kickstart
+* The Sling Starter source code
+* The Sling Kickstarter source code
+
+        $ cd myfeaturemodel
+        $ git clone https://github.com/apache/sling-org-apache-sling-starter.git
+        $ git clone https://github.com/apache/sling-org-apache-sling-kickstart.git
+
+Your workspace should now look like this:
+
+    $ ls -l
+    drwxr-xr-x  15 user group 480 Jun  8 16:16 sling-org-apache-sling-kickstart
+    drwxr-xr-x  13 user group 416 Jun  8 16:10 sling-org-apache-sling-starter
+
 
 
 ### Step 2: Build the Feature Archive
 
-The build is straight forward from here:
+Like our last how-to, we'll use the _Provisioning to Feature Model Converter Plugin_ again, but this time we'll
+specify a Maven profile (`create-far`) that creates a Feature Archive.
 
-    $ mvn -f sling-fm-pom.xml install -Dsling.starter.folder=<path to the sling starter module> -P create-far
-    $ ls target/*.far
+    $ cd sling-org-apache-sling-kickstart
+    $ mvn -f sling-fm-pom.xml clean install -Dsling.starter.folder=../sling-org-apache-sling-starter -Pcreate-far
 
-You should see a file listed with the name **org.apache.sling.kickstart.conversion-0.0.4-sling12archive.far**
-which is the Sling Feature Archive.
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+Once the build is complete, you'll find a Feature Archive file at
+`sling-org-apache-sling-kickstart/target/slingfeature-tmp/feature-sling12.json`.
+
+</div>
+
+
+Before continuing, run one more Maven build in this directory as we will need a copy of the Kickstarter JAR in the next
+section.
+
+    $ mvn clean install
+
 
 ### Step 3: Launch the Feature Archive
 
