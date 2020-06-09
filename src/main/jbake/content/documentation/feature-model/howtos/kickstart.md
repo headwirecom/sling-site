@@ -1,7 +1,7 @@
 title=How to Start Sling with the Kickstarter
 type=page
 status=published
-tags=feature model,sling,kickstart
+tags=feature model,sling,kickstarter
 ~~~~~~
 
 ### About this How-To
@@ -38,7 +38,7 @@ the application packaging process.
 
 The Kickstarter provides a method to start Sling using a new application packaging/assembly approach known as
 the _Feature Model_.  By default, the Kickstarter is configured with a minimum set of feature definitions to 
-produce a lightweight Sling application.  If additional customizations to your Sling application are required, simply 
+produce a lightweight Sling application.  If additional customization is required, simply 
 define additional features based on your requirements. Any additional features will then be pulled from a Maven repository.
 
 ### How does the Kickstarter work
@@ -189,7 +189,7 @@ For compatibility, most of the options are the same as the
 options below are specific to the Kickstarter. 
 
 * **-s**: Replaces the main default Sling feature with your own Feature Model. 
-* **-af**: Defines additional Feature Models (use multuple **-af** options for multiple features)
+* **-af**: Defines additional Feature Models (use multiple **-af** options for multiple features)
 
 </div>
 

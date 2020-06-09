@@ -1,7 +1,7 @@
 title=Create your own Sling Feature Model for the Kickstarter 
 type=page
 status=published
-tags=feature model,sling,kickstart
+tags=feature model,sling,kickstarter
 ~~~~~~
 
 ### About this How-To
@@ -11,7 +11,7 @@ tags=feature model,sling,kickstart
 #### What we'll explore: 
 
 * We'll convert the Sling Starter project to a Feature Model using a Maven plugin
-* We'll visit our old friend, the Kickstarter, to start Sling using our Feature Model
+* We'll visit our old friend, the Kickstarter, and start Sling using the generated Feature Model
 
 #### What you should know: 
 
@@ -47,7 +47,7 @@ Here are some of its high-level capabilities:
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-**Note:** At the time of this writing, the Feature Model is not officialy used by Sling.
+**Note:** At the time of this writing, the Feature Model is not officially used by Sling.
 Until Sling is fully converted to the Feature Model, we'll have to use the
  _Provisioning to Feature Model Converter Plugin_. The plugin will create a Feature Model 
 from each Provisioning Model file. The plugin will then assemble all the Feature Models
