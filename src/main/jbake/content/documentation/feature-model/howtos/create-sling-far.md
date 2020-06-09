@@ -10,7 +10,7 @@ tags=feature model,sling,kickstarter,feature archive
 
 #### What we'll explore: 
 
-* Create a custom Sling Feature Archive using the latest version of Sling
+* Create a custom Feature Archive using the latest version of Sling
 
 #### What you should know: 
 
@@ -32,15 +32,16 @@ In order to follow this how-to you'll need the following on your computer:
 * Completed [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
 
 
-### What's the Sling Feature Archive
+### What's the Feature Archive
 
 A Feature Archive (FAR) is a ZIP file containing the Feature Model along with its dependencies.
 
-### Explanation on what will happen
+### How does the Feature Archive work
 
 A Feature Archive is a fully self contained ZIP file with the Feature Model file and all its dependencies.
-We will create such an Archive and the launch it. The startup will be significantly faster is the Kickstart
-project / Feature Launcher does not have to download the dependencies.
+it's designed to streamline the configuration and packaging of OSGi-based applications.
+
+In this how-to we'll create a Feature Archive and start it using our trusty Kickstarter.
 
 ### Step 1: Obtain Sling Starter and Kickstart Modules
 
