@@ -131,12 +131,12 @@ Lastly, let's start Sling using the Feature Model.
 
 </div>
 
-If you stick with us a bit more, we'll build on what you learned and show you how to make a custom Sling Archive with
+If you stick with us a bit more, we'll build on what you learned and show you how to make a custom Feature Archive with
 the Kickstarter.
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-* Next Up: [Create your own Sling Archive for the Kickstart](/documentation/feature-model/howtos/create-sling-far.html)
+* Next Up: [How To Create a Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
 * Back To: [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
 
 </div>

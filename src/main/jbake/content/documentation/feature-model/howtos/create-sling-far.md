@@ -1,4 +1,4 @@
-title=Create your own Sling Archive for the Kickstarter
+title=How To Create a Feature Archive
 type=page
 status=published
 tags=feature model,sling,kickstarter,feature archive

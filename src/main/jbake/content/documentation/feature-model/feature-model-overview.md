@@ -33,7 +33,7 @@ that you start on the first and work your way through them consecutively.
 
 * [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
 * [Deep Dive into Creating a Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
-* [How To Create a Sling Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
+* [How To Create a Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
 * [How to Create a Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
 * [How to Launcher Sling with the Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
 * [Create a Custom Feature Project and Launch it](/documentation/feature-model/howtos/sling-with-custom-project.html)
