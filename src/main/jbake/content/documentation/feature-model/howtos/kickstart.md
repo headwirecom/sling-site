@@ -16,7 +16,7 @@ tags=feature model,sling,kickstarter
 
 * Skill Level: Beginner
 * Environment: Windows/Unix
-* Time: 15 minutes
+* Time: 20 minutes
 
 </div>
 
@@ -76,7 +76,7 @@ directory anything you like.
 
 </div>. 
 
-Start the Kickstarter.
+Run the Kickstarter to start Sling..
 
     $ java -jar org.apache.sling.kickstart-0.0.2.jar
 
@@ -84,9 +84,9 @@ Next, open a browser and visit [http://localhost:8080/](http://localhost:8080/).
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-- The Kickstarter will take some time to start the first time since the Feature Model needs to populate your local
+* The Kickstarter will take some time to start the first time since the Feature Model needs to populate your local
   Maven repository with any missing artifacts. 
-- If you run into any issues, try re-running the Kickstarter with the **-v** option.
+* If you run into any issues, try re-running the Kickstarter with the **-v** option.
 
 </div>
 
@@ -193,12 +193,24 @@ options below are specific to the Kickstarter.
 
 </div>
 
+### Start Sling using --mainFeature
 
-### Build the Kickstarter from source
+The real power of the Kickstarter can be seen when you specify your own Feature Model. As an example,
+let's re-run the Kickstarter and specify an external Feature Model.
 
-If you're interested in building the Kickstarter from source, take a look at 
-the [GitHub](https://github.com/apache/sling-org-apache-sling-kickstart/blob/master/Readme.md) project.
+We'll start by moving into our `kickstarter` workspace. Then, we'll Stop Sling if it's still running. 
+Next, remove the old `conf` and `launcher` directories so that we can start a clean Sling instance.
+Extract the Sling 12 Feature Model file from the Kickstart JAR. Lastly, start Sling using the Feature Model 
+file.
 
+    $ cd kickstarter
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar stop
+    $ rm -rf conf launcher
+    $ jar -xf org.apache.sling.kickstart-0.0.2.jar feature-sling12.json
+    $ java -jar org.apache.sling.kickstart-0.0.2.jar --mainFeature=feature-sling12.json
+
+If you're curious, take a peak at the Feature Model for Sling 12 by opening `feature-sling12.json` in
+your favorite editor.
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
