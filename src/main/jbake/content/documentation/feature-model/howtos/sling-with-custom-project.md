@@ -1,96 +1,90 @@
-title=Start Sling with a Custom Project
+title=How to Create a Custom Feature Model Project
 type=page
 status=published
-tags=feature model,sling,feature launcher
-note=Sample project can be found in the Sling-Samples project under feature-model-samples: sling-with-custom-project-sample
+tags=feature model,sling,feature launcher, kickstarter
 ~~~~~~
 
-### How-To Overview
+### About this How-To
 
-<div style="background: lightblue;">
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-* What will you learn:
-	* Creating a Custom Feature Model / Archive Project
-    * Launch it with Sling Feature Archive
-    * Launch it with Sling Kickstart
+#### What we'll explore: 
 
-* Time: 15 minutes
-* Skill Level: Beginner
+* Create a custom Feature Model / Archive project
+* Launch the project with Sling as a Feature Archive
+* Launch the project with Sling using the Kickstarter
+
+#### What you should know: 
+
+* Skill Level: Intermediate
 * Environment: Windows/Unix
+* Time: 30 minutes
+
 </div>
 
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+* Back To: [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
-In order to follow through this HowTo you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
 * Maven 3
-* Command Line with Bash
+* Bash shell
+* Completed [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
 
-### Custom Feature Model Project
 
-This is an introduction on how to create a Project in the age of Feature Models. 
+### What's a Feature Model project
+
+A Feature Model project is a standard Maven project with the following additional features:
+
+* Support for creating a Feature Archive
+
 
 ### Explanation on what will happen
 
-A Feature Model can be created from a **Maven POM** file and then be used to either
-launch it or create a Feature Archive and the launch that one.
-We are going to create a Sling Project, create a Bundle and then aggregate this into
-a Feature Archive. Finally we will launch it together with Sling.
+1. First, we'll start by cloning a Git repository that defines a sample Feature Model project.
+2. Second, we'll review the important sections of the POM.
+3. Next, we'll build a Feature Archive from source.
+4. Then, we'll launch it... TODO
+5. Lastly, we'll launch it using the Kickstarter.
 
-### Step 1: Create a Feature Model Project
+### Step 1: Get the sample Feature Model project
 
-The source code to this project can be [downloaded here](sling-with-custom-project-sample.zip).
-It is a ZIP file so just uncompress it and have a look at it. These are the main parts:
+<div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-* a Bundle POM file
-    * a **src/main/java** folder for the Java sources
-    * a **src/resources/SLING-INF** folder for the Sling content
-* a **repository** folder for project-local Maven content
+**TODO:** Create a sample application and host it on GitHub and update the documentation.
 
-This is a straight forward Sling Content Bundle where the code is in its regular place
-but the content is going into the resource folder. Because the folder will go into the
-bundle it is suggested to name it **SLING-INF** (here) or **SLING-CONTENT** or so.
-**Attention**: when the bundle is installed the **SLING-INF** folder is removed but
-the name might help when introspecting the bundle ZIP file.
+</div>
 
-### Step 2: Use of Project Local Repository
+Begin by cloning the sample Feature Model project from GitHub.
 
-In order to speed things up this project comes with a **project-local** repository for
-both the Slingfeature Maven Plugin (using unreleased plugin) and the Sling 12 Feature
-Archive.
-A **project-local** is a **Maven Repository** inside the project and better than like
-**system dependencies** and dependencies can be easily copied over from your local (.m2)
-folder into your project-local folder.
-Adding this to your project is pretty simple:
-
-    <repositories>
-       <repository>
-          <id>project.local</id>
-          <name>project</name>
-          <url>file:${maven.multiModuleProjectDirectory}/repository</url>
-       </repository>
-    </repositories>
-    <pluginRepositories>
-      <pluginRepository>
-         <id>project.local</id>
-         <name>project</name>
-         <url>file:${maven.multiModuleProjectDirectory}/repository</url>
-      </pluginRepository>
-    </pluginRepositories>
+    $ curl -L -O http://localhost:8820/documentation/feature-model/howtos/sling-with-custom-project-sample.zip
+    $ jar -xf sling-with-custom-project-sample.zip 
+    $ cd sling-with-custom-project-sample
 
 
-**Attention**: the **url** path needs to be relative to the POM that contains the
-dependencies. So if your project-local repository is defined in a parent POM but then
-used in a child POM the folder found by **file:${maven.multiModuleProjectDirectory}**
-is your current folder so the repository is in the parent folder then the path
-needs to go up a directory with **..**.
+### Step 2: Review the project layout
 
-**Note**: if the project-local repository contains plugins then the **&lt;pluginRepositories/>**
-must be provided otherwise it can be omitted. Also if only plugins are provided then
-the **&lt;repositories/>** can be omitted.
+Here's a partial look at the project structure.
+
+    ├── pom.xml
+    ├── repository
+    └── src
+        └── main
+            ├── java
+            └── resources
+                └── SLING-INF
+
+The project is nearly identitcal to a traditional Sling bundle project with a couple of exceptions.
+
+* `repository` - A local Maven repository to simplify this example. It contains the
+   Sling Feature Maven Plugin and  Sling 12 Feature Archive dependencies.
+* `src/main/resources/SLING-INF` - Folder for Sling content
+
+
+TODO: continue editing here.
 
 ### Step 3: Build Sling Feature Archive
 
