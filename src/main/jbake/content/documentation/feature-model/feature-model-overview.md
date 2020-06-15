@@ -35,8 +35,6 @@ that you start on the first and work your way through them consecutively.
 * [Deep Dive into Creating a Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * [How to Create a Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
-* [How to Launcher Sling with the Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
-* TODO: Where should this go? [How To Create a Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
 
 ## Related Advanced Reading
 
