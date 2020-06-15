@@ -32,9 +32,9 @@ that you start on the first and work your way through them consecutively.
 ## Exploring Feature Models by Example
 
 * [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
-* [Deep Dive into Creating a Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 * [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * [How to Create a Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
+* [How to Convert a Provisioning Model to a Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 
 ## Related Advanced Reading
 

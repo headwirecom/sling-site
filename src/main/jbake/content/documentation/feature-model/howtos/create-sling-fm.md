@@ -1,4 +1,4 @@
-title=Create your own Sling Feature Model for the Kickstarter 
+title=How to Convert a Provisioning Model to a Feature Model
 type=page
 status=published
 tags=feature model,sling,kickstarter
@@ -21,7 +21,9 @@ tags=feature model,sling,kickstarter
 
 </div>
 
-Back To: [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
+* Back To: [How to Create a Composite NodeStore](/documentation/feature-model/howtos/create-sling-composite.html)
+* Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
+
 
 ### Prerequisites
 
@@ -30,17 +32,6 @@ In order to follow this how-to you'll need the following on your computer:
 * Java 8
 * Maven 3
 * Bash shell
-* Completed [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
-
-
-### What's the Sling Feature Model
-
-The Sling Feature Model provides a robust approach for configuring and assembling OSGi-based applications. 
-Here are some of its high-level capabilities:
-
-* Declarative description of an entire application or part of an application 
-* Support for aggregating Feature Models into a single Feature model for simpler packaging and distribution
-* Easy application startup through the Feature Launcher
 
 
 ### Create a Feature Model
@@ -131,12 +122,8 @@ Lastly, let's start Sling using the Feature Model.
 
 </div>
 
-If you stick with us a bit more, we'll build on what you learned and show you how to make a custom Feature Archive with
-the Kickstarter.
-
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-* Next Up: [How To Create a Feature Archive](/documentation/feature-model/howtos/create-sling-far.html)
-* Back To: [How To Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
+* Back To: [How to Create a Composite NodeStore](/documentation/feature-model/howtos/create-sling-composite.html)
 
 </div>

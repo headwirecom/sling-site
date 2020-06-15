@@ -147,7 +147,7 @@ and keep reading.
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-* Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Next Up: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 </div>
@@ -214,7 +214,7 @@ your favorite editor.
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-* Next Up: [Build your own Sling Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Next Up: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
 
 </div>

@@ -22,7 +22,7 @@ tags=feature model,sling,feature launcher, kickstarter
 
 </div>
 
-* Back To: [Create your own Sling Feature Model for the Kickstarter](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back To: [How to Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
 * Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
 
 
@@ -33,6 +33,16 @@ In order to follow this how-to you'll need the following on your computer:
 * Java 8
 * Maven 3
 * Bash shell
+
+
+### What's the Sling Feature Model
+
+The Sling Feature Model provides a robust approach for configuring and assembling OSGi-based applications.
+Here are some of its high-level capabilities:
+
+* Declarative description of an entire application or part of an application
+* Support for aggregating Feature Models into a single Feature model for simpler packaging and distribution
+* Easy application startup through the Feature Launcher
 
 
 ### What's a Feature Model project

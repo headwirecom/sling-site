@@ -21,8 +21,8 @@ tags=feature model,sling,kickstarter
 
 </div>
 
-Back To: [TODO](/documentation/feature-model/howtos/create-sling-far.html)
-
+* Back To: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
+* Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
@@ -31,7 +31,6 @@ In order to follow this how-to you'll need the following on your computer:
 * Java 8
 * Maven 3
 * Bash shell
-* Completed [TODO](/documentation/feature-model/howtos/create-sling-far.html)
 
 
 ### What's the Composite NodeStore
@@ -182,7 +181,7 @@ If you stick with us, we'll show you how to upgrade your application with the Co
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-* Next Up: TODO 
-* Back To: TODO 
+* Next Up: [How to Convert a Provisioning Model to a Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back To: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html) 
 
 </div>
