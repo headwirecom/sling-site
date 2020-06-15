@@ -67,7 +67,7 @@ Begin by cloning the sample Feature Model project from GitHub.
 
 ### Step 2: Review the project layout
 
-Here's a partial look at the project structure.
+The project is nearly identitcal to a traditional Sling bundle project with a couple of exceptions.
 
     ├── pom.xml
     ├── repository
@@ -77,45 +77,22 @@ Here's a partial look at the project structure.
             └── resources
                 └── SLING-INF
 
-The project is nearly identitcal to a traditional Sling bundle project with a couple of exceptions.
 
 * `repository` - A local Maven repository to simplify this example. It contains the
    Sling Feature Maven Plugin and  Sling 12 Feature Archive dependencies.
 * `src/main/resources/SLING-INF` - Folder for Sling content
 
 
-TODO: continue editing here.
+### Step 3: Build 
 
-### Step 3: Build Sling Feature Archive
+In this step, we'll use Maven to build a feature arch
+We can build our sample application and start it with the Sling Feature Launcher using the
+the `launch` Maven profile.
 
-Due to its size the Sling Feature Archive is not included in the project local folder.
-In order to make this available please go back to the [Create Sling Feature Archive](create-sling-far.html)
-and build the Sling Feature Archive.
-
-### Step 4: Build and Launch
-
-Build and launching is just a matter of running the Maven build:
-
-    $ cd <project root folder>
-    $ mkdir sample-feature-archive-project
-    $ cd sample-feature-archive-project
-    $ jar -xvf <downloaded project ZIP file>
-    $ mvn clean install -P launch 
+    $ mvn clean install -Plaunch 
 
 
-Sling comes up and you can [login here](http://localhost:8080/) using the default *admin/admin*.
-The click on the [System Console Link](http://localhost:8080/system/console/bundles) which will
-bring you to the OSGi Bundles list. Click on the **filter box** and enter *sample* and hit enter.
-You will see that your project bundles was successfully installed:
-
-![Installed Sample FAR Bundle](sample.far.project.bundles.png)
-
-Now go back to the [Sling Starter Page](http://localhost:8080) and click on
-[Browse Content](http://localhost:8080/bin/browser.html) to have a look at what the
-**Sample Content Bundle** installed:
-
-![Sample FAR Project Content](sample.far.project.jcr.content.png)
-
+The 
 **Note**: there is not limit to add additional custom projects. The only thing that needs to be
 done is to build the custom projects first and then add the Maven Id to the **featureArchiveIds**
 in the Slingfeature Launcher.
