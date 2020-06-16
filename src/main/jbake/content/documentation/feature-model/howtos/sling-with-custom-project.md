@@ -1,7 +1,7 @@
 title=How to Create a Custom Feature Model Project
 type=page
 status=published
-tags=feature model,sling,feature launcher, kickstarter
+tags=feature model,sling, kickstarter
 ~~~~~~
 
 ### About this How-To
@@ -168,7 +168,9 @@ Make a note of `target/slingfeature-tmp/feature-feature_model_sample.json` as th
                             <server>
                                 <port>8080</port>
                                 <controlPort>8081</controlPort>
-                                <additionalFeatureFile>target/slingfeature-tmp/feature-feature_model_sample.json</additionalFeatureFile>
+                                <additionalFeatureFile>
+                                    target/slingfeature-tmp/feature-feature_model_sample.json
+                                </additionalFeatureFile>
                                 <debug>true</debug>
                             </server>
                         </servers>

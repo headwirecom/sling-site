@@ -147,7 +147,8 @@ the repository. If you prefer not to use cURL, simply [log into Sling](http://lo
 
 **1.** Let's start by making a post request and add a JCR property to the `/content` node. 
 
-    $ curl -s -v -u admin:admin -FtestProperty='I can write to the content node' 'http://localhost:8080/content/slingshot' > /dev/null
+    $ curl -s -v -u admin:admin -FtestProperty='I can write to the content node' \
+          'http://localhost:8080/content/slingshot' > /dev/null
     ...
     < HTTP/1.1 200 OK
     ...
@@ -157,7 +158,8 @@ Since this is a read-write repository path, you should receive an _HTTP 200 OK_ 
 
 **2.** Now, let's try the same test, but let's attempt to write to a read-only node.
 
-    $ curl -s -v -u admin:admin -FtestProperty='I cannot write to the apps node' 'http://localhost:8080/apps/slingshot' > /dev/null
+    $ curl -s -v -u admin:admin -FtestProperty='I cannot write to the apps node' \
+          'http://localhost:8080/apps/slingshot' > /dev/null
     ...
     < HTTP/1.1 500 Server Error
     ...
