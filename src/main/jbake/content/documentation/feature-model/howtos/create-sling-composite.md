@@ -1,279 +1,187 @@
-title=Create a Sling with Composite Nodestore 
+title=How to Create a Composite NodeStore 
 type=page
 status=published
-tags=feature model,sling,kickstart
-note=Sample project can be found in the Sling-Samples project under feature-model-samples: create-sling-composite-sample
+tags=feature model,sling,kickstarter
 ~~~~~~
 
-### How-To Overview
+### About this How-To
 
-<div style="background: lightblue;">
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-* What will you learn: 
-	* Creating your own Sling Instance with a Composite Nodestore
+#### What we'll explore: 
 
-* Time: 30 minutes
+* Create a Sling instance with a Composite NodeStore using the Feature Model
+* Learn why it's a good idea to segment your application from your content
+
+#### What you should know: 
+
 * Skill Level: Intermediate
 * Environment: Windows/Unix
+* Time: 20 minutes
 
 </div>
 
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+* Back To: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html)
+* Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
 
 ### Prerequisites
 
-In order to follow through this HowTo you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
 * Maven 3
-* Command Line with Bash
-* Worked through *Get up and running with Sling and the Kickstart*
+* Bash shell
 
-### What is the Composite Nodestore
 
-A Composite Nodestore is a virtual nodestore that is composed of multiple nodestores acting as
-one. Each of the nodestore has a part of the nodestore like a mount in a Unix file system. One
-of these nodestore can be made read-only.
+### What's the Composite NodeStore
 
-### Why Using a Composite Nodestore
+A Composite NodeStore is a repository composed of two or more nodestores. The nodestores work together
+to provide a single logical repository. Like a UNIX file system, each nodestore acts similar to
+file system mount points. For example, you can mount the `/content` node as read-write and the
+`/apps` and `/libs` nodes as read-only.
 
-One of the problems with working with Sling is that during development changes and deployments
-can conflict or changes can be lost making Sling unstable.
-A solution is to make static part of Sling read-only like libs and apps and only dynamic parts like
-content. For that the JCR nodestore is split into two - one for read-only content, the other for
-the dynamice content - and them combined as Composite Nodestore which act like one.
-The difficult part is that during the deployment of the artifacts the static nodestore needs to
-be writable in order to install and configure the artiacts and after the installation / setup that
-nodestore is then made read-only.
+
+### Why use a Composite NodeStore
+
+The Composite NodeStore can be used to improve the stability of your site. In general, you can think
+of a Sling site as consisting of two parts: your content (which changes often) and your application
+(which changes periodically). Unless there's a scheduled application release, there's very little
+reason to allow a running Sling instance to be changed from a code/application perspective. 
+
+It provides a great way to ensure that application changes are not allowed without an 
+official release, but still allow day-to-day editorial content changes. Some of the benefits of using
+the Composite NodeStore and separating your content and application concerns are:
+
+* Improve site stability 
+* Minimize downtime with blue-green deployments
+* Use CI/CD pipelines to release immutable versions of your application
+* Easily update/rollback your application without impacting your valuable content
+* Ensure your site is always up-to-date and current
+
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+For those of you familiar with container orchestration platforms like Kubernetes (k8s), can you
+think of a reason why the Composite NodeStore may be useful for Sling applications in the container world?
+
+</div>
+
  
 ### Explanation on what will happen
 
-First we will start Sling with just a single, regular Nodestore that will become the read-only Nodstore
-later. After Sling stabilizes we will shut it down, create a link of the created segment store
-as **segmentstore** and then launch Sling once more with initial Nodestore as read-only and the
-new created **global** nodestore as writable. 
-A Feature Archive is a fully self contained ZIP file with the Feature Model file and all its dependencies.
-We will create such an Archive and the launch it. The startup will be significally faster is the Kickstart
-project / Feature Launcher does not have to download the dependencies.
+Let's take a quick look at what will happen behind the scenes as we work through this tutorial. 
 
-### Step 1: Obtain Kickstart Module
+1. First, we'll start Sling using a regular nodestore. We'll call this our _seed_ step as it'll allow
+   us to bootstrap our instance with our application code. When we're done with the _seeding_ process,
+   we'll have our application fully populated in the `/apps` and `/libs` JCR nodes. These nodes will
+   later become read-only.
+2. Once Sling has started for the first time and completed the seeding process, we'll stop the instance.
+3. Then, we'll designate the seeded repository as our read-only segment store.
+4. Lastly, we'll start Sling in _composite mode_. When Sling comes up it will create another nodestore,
+   called _global_ that will function as our read-write portion of the repository. At this point, your
+   application can't be changed while the Sling instance is running.
 
-**Note**: if both modules were already obtained by the previous (Create Sling Feature Model / Archive) then
-this entire step can be skipped.
 
-We will obtain the released source from the Apache Repository. If you want to get the latest then have a
-look at the Addendum on how to clone the GitHub repository instead.
+### Step 1: Obtain the Kickstarter module
 
-We contain the [Release Source of Sling Kickstart](https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart):
+<div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-    $ cd <project root folder>
-    $ curl https://repository.apache.org/content/groups/public/org/apache/sling/org.apache.sling.kickstart/0.0.4/org.apache.sling.kickstart-0.0.4-source-release.zip \
-      > org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ jar -xvf org.apache.sling.kickstart-0.0.4-source-release.zip
-    $ mv org.apache.sling.kickstart-0.0.4 sling-org-apache-sling-kickstart
+**TODO:** Update instructions to use the binary release.
+
+</div>
+
+Build the Kickstarter and install it into your local Maven repository.
+
+    $ git clone https://github.com/apache/sling-org-apache-sling-kickstart.git
     $ cd sling-org-apache-sling-kickstart
-
-
-### Step 2: Build the Kickstart
-
-We still need to build the Kickstart project as we need the launching ability:
-
     $ mvn clean install
 
-### Step 3: Run the Initialization Script
+### Step 2: Initialize (seed) the repository
 
-First We need to start Sling now as we would normally do (seed mode):
+Start Sling for the first time using the seed creation script.
 
-    $ sh bin/create_seed_fm.sh
+    $ ./bin/create_seed_fm.sh
 
+This script uses the Kickstarter to start Sling with two Feature Models:
 
-This will start Sling with these two Feature Models:
+1. `feature-sling12-two-headed.json` - Our main Feature Model. Sling Feature Model without a NodeStore
+2. `feature-two-headed-seed.json` - Additional Feature Model. Feature Model with a single NodeStore
 
-1. sling-fm-two-headed.json: Sling Feature Model without a Nodestore
-2. feature-two-headed-seed.json: Feature Model with a single Nodestore
+When you see the line below, Sling has been fully initialized and should be safely stopped by entering `<CTRC>+C`.
 
-When Sling is donw with the startup shut it down.
+    ESAPI: SUCCESSFULLY LOADED validation.properties via the CLASSPATH from '/ (root)'...
 
-### Step 4: Run Sling with a Composite Nodstore
+<div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-Now we are ready to launch Sling for public usage:
+**TODO:** Add more detail on what happens during the seeding process. 
 
-    $ sh bin/run_composite_fm.sh
-
-This will first create a link of the first nodestore to the expected name
-of **segmentstore**. Then it will make that nodestore read-only. Finally
-it will create a **global** nodestore for the content.
-
-### Step 5: Test Expected Functionality
-
-To make sure that the first nodestore is read-only but content is still
-editable we log into Sling and then use Composum to add properties and
-see what happens.
-
-**1.** Log Into [Sling](http://localhost:8080)
-
-![Sling Logged In](sling-logged-in-starter.png)
-
-**2.** Click on [Browse Content](http://localhost:8080/bin/browser.html)
- 
-![Sling Composum Landing](sling-composum-landing.png)
-
-**3.** Click on [Slingshot Node in Content](http://localhost:8080/bin/browser.html/content/slingshot)
-
-![Sling Composum Slingshot Content](sling-content-slingshot-selected.png)
-
-**4.** Click on the **Plus** sign to the right over the Properties to add a new one
-
-![Sling Composum Content Add Prop](sling-content-slingshot-add-prop.png)
-
-**5.** Fill in a name and a value and safe it and it is properly added
-
-![Sling Composum Content Prop Added](sling-content-slingshot-prop-added.png)
-
-**6.** Click on [Slingshot Node in Apps](http://localhost:8080/bin/browser.html/apps/slingshot)
-
-![Sling Composum Slingshot Apps](sling-apps-slingshot-selected.png)
-
-**7.** Click on the **Plus** sign to the right over the Properties to add a new one
-
-![Sling Composum Apps Add Prop](sling-apps-slingshot-add-prop.png)
-
-**8.** Fill in a name and a value and safe it and it will error out
-
-![Sling Composum Content Prop Add Failed](sling-apps-slingshot-prop-add-failed.png)
+</div>
 
 
-### Step 6: Update your Project
+### Step 3: Start Sling using the Composite NodeStore
 
-The next step is to being able to upgrade your project when you release new software.
-To showcase how this works without having to code everything you can
-[download a sample project here](create-sling-composite-sample.zip).
-Uncompress and install:
+Now, let's start Sling a second time using the Composite NodeStore.
 
-    $ cd <project root folder>
-    $ mkdir sling-composite-nodestore-project
-    $ cd sling-composite-nodestore-project
-    $ jar -xvf <download folder>/sling-composite-nodestore-project.zip
+    $ ./bin/run_composite_fm.sh
 
 
-The project contains these pieces:
+<div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-* Two versions of the same code with slight changes
-* Scripts to launch Sling Composite Nodestore
-* Project-local Repository
+**TODO:** Add more detail on what happens during the composite startup process. 
 
-An **Update Cycle** is done like this:
+</div>
 
-* Build the samples
-* Start the Sling Seed with Sample v1.0.0 and then the Composite Nodestore
-* Restart the Sling Seed with Sample v1.0.1 and then the Composite Nodestore
-* Check the changes and the read-only state
 
-#### Build the Samples
+### Step 4: Verify read-only and read-write nodes
 
-As of now the samples need to be built from their folders:
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-    $ cd <project root folder>
-    $ cd sling-composite-nodestore-project
-    $ sh bin/build-samples.sh
+The next set of steps uses the _SlingPostSevlet_ and cURL to test the read-write and read-only portions of 
+the repository. If you prefer not to use cURL, simply [log into Sling](http://localhost:8080), navigate to 
+[Composum](http://localhost:8080/bin/browser.html) and manipulate the nodes by hand.
 
-#### Start Sling with Initial Version 1.0.0
+</div>
 
-This is a regular launch of Sling Composite Nodestore together with the
-Sample project version 1.0.0:
 
-    $ cd <project root folder>
-    $ cd sling-composite-nodestore-project
-    $ sh bin/create_seed_fm.sh
-    [stop sling after fully started]
-    $ sh bin/run_composite_fm.sh
+**1.** Let's start by making a post request and add a JCR property to the `/content` node. 
 
-After Sling is up and running go to the [Sling Starter Page](http://localhost:8080) and
-login. Then click on the [Browse Content link](http://localhost:8080/bin/browser.html) and
-have a look at **/content** and **/apps**.
+    $ curl -s -v -u admin:admin -FtestProperty='I can write to the content node' \
+          'http://localhost:8080/content/slingshot' > /dev/null
+    ...
+    < HTTP/1.1 200 OK
+    ...
 
-**Note**: this time when Sling is restart into the Composite Nodestore mode
-the **launcher** (Sling code base) is deleted before the launch.
+Since this is a read-write repository path, you should receive an _HTTP 200 OK_ response and be able to write to a property called 
+`testProperty` with the value `I can write to the content node` on the `/content/slingshot` node.
 
-#### Start Sling with the Updated Version 1.0.1
+**2.** Now, let's try the same test, but let's attempt to write to a read-only node.
 
-To Update Sling we need to launch it first in the **Seed Mode** so that
-the read-only nodestore can be updated before starting the **Composite
-Nodestore**:
+    $ curl -s -v -u admin:admin -FtestProperty='I cannot write to the apps node' \
+          'http://localhost:8080/apps/slingshot' > /dev/null
+    ...
+    < HTTP/1.1 500 Server Error
+    ...
 
-    [Shutdown Sling]
-    $ sh bin/create_updated_seed_fm.sh
-    [stop sling after fully started]
-    $ sh bin/run_updated_composite_fm.sh
+You should now receive an _HTTP 500 error_ response. So, even as the admin user, you can't write to the `/apps` section of the repository. 
 
-### Check the Update
-
-We will check the changes made by the Update of the Sample and also to make
-sure that the /libs and /apps folders are still read-only.
-
-These are updates to look for:
-
-**Changes in Nodes**:
-
-* /content/testContentUI/test - added version to description
-* /apps/testAppsUI/install - added version to description
-* /
-
-**New Nodes**:
-
-* /apps/testAppsAllMer - folder and sub nodes added
-* /apps/testContentAllMer - folder and sub nodes added
-
-**Removed Nodes**:
-
-* /apps/testToBe/removed - nodes and parent node are removed during upgrade
-* /content/testToBe/staying - nodes stays even though it was removed from project    
-
-**Attention**: a project normally would not contain content except for an initial
-seed and so it is not expected that content would be deleted. This is only here
-to proof that fact.
 
 ## Mission Accomplished
 
-* Next Up: [Launch Sling with Feature Launcher](/documentation/feature-model/howtos/start-sling-feature-launcher.html)
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-## Addendum
+#### What we learned: 
 
-### Scripts
+* The benefits of running a repository comprised of read-only and read-write nodes
+* How to run Sling using the Composite Nodestore
+* Even as the admin user, we can't make changes to read-only nodes
 
-The build and launch scripts are configurable in the **bin/setenv.sh** bash script.
-Just adjust the variables there to your environment and you are good to go.
+</div>
 
-**Attention**: these scripts are geared towards a launch of an intial custom project and
-then doing an update of that initial project. They can be adjusted by additional additional
-projects, feature models or archives but that is not provided in the scripts.
+If you stick with us, we'll show you how to convert an existing Provisioning Model to a Feature Model..
 
-### Nodestore Introspection
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
-It is interesting to inspect the nodestore Sling is using to see what actually happened.
-So we are going to shutdown Sling and then start the nodestore viewer with the path to
-the nodestore:
+* Next Up: [How to Convert a Provisioning Model to a Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
+* Back To: [How to Create a Custom Feature Model Project](/documentation/feature-model/howtos/sling-with-custom-project.html) 
 
-    $ <shut down Sling>
-    $ sh bin/explore_repo.sh sling/sling-composite/repository-libs/segmentstore
-
-
-This will bring up a Java UI where the user can view the nodes. Keep in mind that children
-of a node are only shown if the node is selected. So we click on **root**, then **libs**,
-**content** and finally **content/slingshot** and we see:
-
-![Content Slingshot in Nodestore Viewer](nodestore-viewer-content-slingshot.png)
-
-**Note**: the node /content/slingshot is not containing the node **test-content1** we created
-while running Sling.
-
-Now why is this?
-
-Well, when we started Sling the first time to create the **seed** we only created one
-nodestore, then one we look at here. Even though we only need it later to service /apps
-and /libs Sling will install everything into that nodestore including /content. 
-When we start up Sling for the second time Sling will install the /content once more but this
-time into the editable nodestore. 
-
-It is left to the user to explore that nodestore and see the changes made by themselves.
+</div>

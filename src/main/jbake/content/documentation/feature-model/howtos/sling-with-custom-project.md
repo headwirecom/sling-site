@@ -1,146 +1,215 @@
-title=Start Sling with a Custom Project
+title=How to Create a Custom Feature Model Project
 type=page
 status=published
-tags=feature model,sling,feature launcher
-note=Sample project can be found in the Sling-Samples project under feature-model-samples: sling-with-custom-project-sample
+tags=feature model,sling, kickstarter
 ~~~~~~
 
-### How-To Overview
+### About this How-To
 
-<div style="background: lightblue;">
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
 
-* What will you learn:
-	* Creating a Custom Feature Model / Archive Project
-    * Launch it with Sling Feature Archive
-    * Launch it with Sling Kickstart
+#### What we'll explore: 
 
-* Time: 15 minutes
-* Skill Level: Beginner
+* Create a sample Sling bundle project 
+* Update the Maven POM to add Feature Model support to the project
+* Launch our sample application with the Kickstarter
+
+#### What you should know: 
+
+* Skill Level: Intermediate
 * Environment: Windows/Unix
+* Time: 20 minutes
+
 </div>
 
-* Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+* Back To: [How to Start Sling with the Kickstarter](/documentation/feature-model/howtos/kickstart.html)
+* Back Home: [Feature Model](/documentation/feature-model/feature-model-overview.html)
+
 
 ### Prerequisites
 
-In order to follow through this HowTo you need the following on your computer:
+In order to follow this how-to you'll need the following on your computer:
 
 * Java 8
 * Maven 3
-* Command Line with Bash
-
-### Custom Feature Model Project
-
-This is an introduction on how to create a Project in the age of Feature Models. 
-
-### Explanation on what will happen
-
-A Feature Model can be created from a **Maven POM** file and then be used to either
-launch it or create a Feature Archive and the launch that one.
-We are going to create a Sling Project, create a Bundle and then aggregate this into
-a Feature Archive. Finally we will launch it together with Sling.
-
-### Step 1: Create a Feature Model Project
-
-The source code to this project can be [downloaded here](sling-with-custom-project-sample.zip).
-It is a ZIP file so just uncompress it and have a look at it. These are the main parts:
-
-* a Bundle POM file
-    * a **src/main/java** folder for the Java sources
-    * a **src/resources/SLING-INF** folder for the Sling content
-* a **repository** folder for project-local Maven content
-
-This is a straight forward Sling Content Bundle where the code is in its regular place
-but the content is going into the resource folder. Because the folder will go into the
-bundle it is suggested to name it **SLING-INF** (here) or **SLING-CONTENT** or so.
-**Attention**: when the bundle is installed the **SLING-INF** folder is removed but
-the name might help when introspecting the bundle ZIP file.
-
-### Step 2: Use of Project Local Repository
-
-In order to speed things up this project comes with a **project-local** repository for
-both the Slingfeature Maven Plugin (using unreleased plugin) and the Sling 12 Feature
-Archive.
-A **project-local** is a **Maven Repository** inside the project and better than like
-**system dependencies** and dependencies can be easily copied over from your local (.m2)
-folder into your project-local folder.
-Adding this to your project is pretty simple:
-
-    <repositories>
-       <repository>
-          <id>project.local</id>
-          <name>project</name>
-          <url>file:${maven.multiModuleProjectDirectory}/repository</url>
-       </repository>
-    </repositories>
-    <pluginRepositories>
-      <pluginRepository>
-         <id>project.local</id>
-         <name>project</name>
-         <url>file:${maven.multiModuleProjectDirectory}/repository</url>
-      </pluginRepository>
-    </pluginRepositories>
+* Bash shell
 
 
-**Attention**: the **url** path needs to be relative to the POM that contains the
-dependencies. So if your project-local repository is defined in a parent POM but then
-used in a child POM the folder found by **file:${maven.multiModuleProjectDirectory}**
-is your current folder so the repository is in the parent folder then the path
-needs to go up a directory with **..**.
+### What's the Sling Feature Model
 
-**Note**: if the project-local repository contains plugins then the **&lt;pluginRepositories/>**
-must be provided otherwise it can be omitted. Also if only plugins are provided then
-the **&lt;repositories/>** can be omitted.
+The Sling Feature Model provides a robust approach for configuring and assembling OSGi-based applications.
+Here are some of its high-level capabilities:
 
-### Step 3: Build Sling Feature Archive
-
-Due to its size the Sling Feature Archive is not included in the project local folder.
-In order to make this available please go back to the [Create Sling Feature Archive](create-sling-far.html)
-and build the Sling Feature Archive.
-
-### Step 4: Build and Launch
-
-Build and launching is just a matter of running the Maven build:
-
-    $ cd <project root folder>
-    $ mkdir sample-feature-archive-project
-    $ cd sample-feature-archive-project
-    $ jar -xvf <downloaded project ZIP file>
-    $ mvn clean install -P launch 
+* Declarative description of an entire application or part of an application
+* Support for aggregating Feature Models into a single Feature Model for simpler packaging and distribution
+* Easy application startup through the Feature Launcher or the Kickstarter
 
 
-Sling comes up and you can [login here](http://localhost:8080/) using the default *admin/admin*.
-The click on the [System Console Link](http://localhost:8080/system/console/bundles) which will
-bring you to the OSGi Bundles list. Click on the **filter box** and enter *sample* and hit enter.
-You will see that your project bundles was successfully installed:
+### What's a Feature Model project
 
-![Installed Sample FAR Bundle](sample.far.project.bundles.png)
+A Feature Model project is a standard Maven project with the following additional features:
 
-Now go back to the [Sling Starter Page](http://localhost:8080) and click on
-[Browse Content](http://localhost:8080/bin/browser.html) to have a look at what the
-**Sample Content Bundle** installed:
-
-![Sample FAR Project Content](sample.far.project.jcr.content.png)
-
-**Note**: there is not limit to add additional custom projects. The only thing that needs to be
-done is to build the custom projects first and then add the Maven Id to the **featureArchiveIds**
-in the Slingfeature Launcher.
-
-### Step 5: Launch with the Kickstarter
-
-The Sling Kickstart JAR file is included in the project-local repository. So we can easily start
-it with:
-
-    $ cd <project root folder>
-    $ cd sample-feature-archive-project
-    $ [IGNORE if already done]: mvn clean install
-    $ java -jar \
-      repository/org/apache/sling/org.apache.sling.kickstart/0.0.3-SNAPSHOT/org.apache.sling.kickstart-0.0.3-SNAPSHOT.jar \
-      -af target/sample-feature-archive-project-1.0.0-samplefararchive.far
+* Sling Feature Maven Plugin
+* Kickstarter launch profile
 
 
-Additional project can be added by adding a **-f** option for each additional project.
+### Step 1: Create a Sling bundle project
+
+
+Let's start by creating a simple Sling project using the traditional Maven [Sling Bundle Archetype](/documentation/development/maven-archetypes.html#sling-jcrinstall-bundle-archetype-1).
+
+    $  mvn -X archetype:generate -DarchetypeGroupId=org.apache.sling -DarchetypeArtifactId=sling-bundle-archetype \
+      -DgroupId=org.apache.sling.example \
+      -DartifactId=feature-model-sample \
+      -Dversion=1.0.0-SNAPSHOT \
+      -Dpackage=org.apache.sling.example
+    $ cd feature-model-sample 
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00;">
+
+**Note:** There are plans to introduce a Maven archetype that will create a Maven project with support for Feature Models.
+
+</div>
+
+
+### Step 2: Update the POM
+
+Now, let's update the POM and add a few elements to layer on support for Feature Models.
+
+**1.** Add the following to the `<properties>` element.
+
+    <slingfeature-maven-plugin.version>1.3.4</slingfeature-maven-plugin.version>
+    <sling-kickstart-maven-plugin.version>0.0.2</sling-kickstart-maven-plugin.version>
+    <oak.version>1.26.0</oak.version>
+
+**2.** Add the [Sling Feature Maven Plugin](https://sling.apache.org/components/slingfeature-maven-plugin/plugin-info.html)  under `<build>` -> `<plugins>`.
+
+    <plugin>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>slingfeature-maven-plugin</artifactId>
+        <version>${slingfeature-maven-plugin.version}</version>
+        <extensions>true</extensions>
+        <executions>
+            <execution>
+                <id>create-fm</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>include-artifact</goal>
+                </goals>
+            </execution>
+            <execution>
+                <id>aggregate-configuration</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>aggregate-features</goal>
+                </goals>
+                <configuration>
+                    <aggregates>
+                        <aggregate>
+                            <classifier>feature_model_sample</classifier>
+                            <filesInclude>**/*.json</filesInclude>
+                            <title>Sling Sample Feature Model</title>
+                        </aggregate>
+                    </aggregates>
+                </configuration>
+            </execution>
+            <execution>
+                <id>install-fm</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>attach-features</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+
+
+The Sling Feature Maven Plugin is responsible for creating a Feature Model JSON file for your project.  The only pieces that change from 
+project to project are the `<classifier>` and `<title>` element values. Set these values to something descriptive for your project. 
+The classifier value will be used as part of the Feature Model JSON filename:
+`target/slingfeature-tmp/feature-`_classifier_`.json`
+
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+Make a note of `target/slingfeature-tmp/feature-feature_model_sample.json` as this path will be used in the next section.
+
+</div>
+
+**3.** Add a Maven profile called `launch`  under `<project>` -> `<profiles>`.
+
+    <profile>
+        <id>launch</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>sling-kickstart-maven-plugin</artifactId>
+                    <version>${sling-kickstart-maven-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <executions>
+                        <execution>
+                            <id>start-sling</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>start</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <launchpadDependency>
+                            <groupId>org.apache.sling</groupId>
+                            <artifactId>org.apache.sling.kickstart</artifactId>
+                            <version>0.0.3-SNAPSHOT</version>
+                        </launchpadDependency>
+                        <parallelExecution>false</parallelExecution>
+                        <keepLaunchpadRunning>true</keepLaunchpadRunning>
+                        <servers>
+                            <server>
+                                <port>8080</port>
+                                <controlPort>8081</controlPort>
+                                <additionalFeatureFile>
+                                    target/slingfeature-tmp/feature-feature_model_sample.json
+                                </additionalFeatureFile>
+                                <debug>true</debug>
+                            </server>
+                        </servers>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+
+
+This profile is responsible for starting your application using the Kickstarter. Simply, set the `<additionalFeatureFile>` to the file
+in your target directory that contains your application's Feature Model JSON.
+
+### Step 4: Launch your application
+
+
+    $ mvn clean install -Plaunch 
+
+Now, log into Sling and visit the System Console. You should see your bundle (`feature-model-sample`) listed.
+
 
 ## Mission Accomplished
 
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+#### What we learned: 
+
+* How to update a traditional Sling bundle project to support Feature Models
+* How to start your project with the Kickstarter
+
+</div>
+
+Well, that was fun. We'll revisit this sample project soon, But first, let's see how the Feature Model can help us handle
+complex application configurations. In the next section, we'll take a look at the Composite NodeStore and how to configure
+it with the Feature Model.
+
+<div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
+
+* Next Up: [How to Create a Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
 * Back To: [Feature Model Home](/documentation/feature-model/feature-model-overview.html)
+
+</div>
