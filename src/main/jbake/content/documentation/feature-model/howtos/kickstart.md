@@ -10,7 +10,7 @@ tags=feature model,sling,kickstarter
 
 #### What we'll explore: 
 
-* We'll start Sling with the Kickstart Launcher (a.k.a kickstarter) and explore the Feature Model
+* We'll start Sling with the Kickstart Launcher (a.k.a the kickstarter) and explore the Feature Model
 
 #### What you should know: 
 
@@ -33,7 +33,7 @@ In order to follow this how-to you'll need the following on your computer:
 
 Prior to the Kickstarter, the Sling application was assembled into an uber JAR using the Provisioning Model. 
 The JAR file was fairly large in size and weighed in at ~70MB. If the Sling application required a new bundle,
-the uber JAR would have to be rebuilt. The Kickstarter was designed to solve this problem as well as to streamline
+the uber JAR would have to be rebuilt. The Kickstarter was designed to solve this problem as well as streamline
 the application packaging process.
 
 The Kickstarter provides a method to start Sling using a new application packaging/assembly approach known as
@@ -74,9 +74,9 @@ directory anything you like.
 
  Make sure nothing is listening on port 8080 as this port will be used by Sling.
 
-</div>. 
+</div> 
 
-Run the Kickstarter to start Sling..
+Run the Kickstarter to start Sling.
 
     $ java -jar org.apache.sling.kickstart-0.0.2.jar
 
@@ -86,7 +86,7 @@ Next, open a browser and visit [http://localhost:8080/](http://localhost:8080/).
 
 * The Kickstarter will take some time to start the first time since the Feature Model needs to populate your local
   Maven repository with any missing artifacts. 
-* If you run into any issues, try re-running the Kickstarter with the **-v** option.
+* If you run into any issues, try re-running the Kickstarter with the `-v` option.
 
 </div>
 
@@ -100,7 +100,7 @@ Click the **Login** link and log in with **admin/admin**.
 Open a new terminal window and navigate to the same Kickstarter working directory that
 was used to start Sling.
 
-Now, run the Kickstarter JAR again with the **status** command to view the current
+Now, run the Kickstarter JAR again with the `status` command to view the current
 status of your Sling instance.
 
     $ java -jar org.apache.sling.kickstart-0.0.2.jar status
@@ -120,11 +120,11 @@ If your sling instance is not running, you should see:
 
 ### Step 5: Stop Sling with the Kickstater
 
-Run the Kickstarter JAR again and specify the **stop** command.
+Run the Kickstarter JAR again and specify the `stop` command.
 
     $ java -jar org.apache.sling.kickstart-0.0.2.jar stop
 
-Alternatively, you can stop Sling by hitting **<CTRL+C>**.
+Alternatively, you can stop Sling by hitting `<CTRL+C>`.
 
 ## Mission Accomplished
 
@@ -161,23 +161,23 @@ The generalized command for the Kickstarter is as follows:
     $ java -jar <jarfile> [options] [command]
 
 It supports three commands: `stop`, `start` and `status` as well as a number of options. For 
-a full list of available options, run the Kickstarter with the **-h** option.
+a full list of available options, run the Kickstarter with the `-h` option.
 
 
 | Short Option  | Long Option                                   | Description                                                                  |
 | ------------- | --------------------------------------------- | ---------------------------------------------------------------------------- |
-| -a            | --address=&lt;address&gt;                     | Address to bind to (default `0.0.0.0`)                                       |
+| -a            | --address=&lt;address&gt;                     | Address to bind to (default `0.0.0.0`).                                      |
 | -af           | --additionalFeature=&lt;additionalFeature&gt; | Define additional feature files. Use multiple options for multiple features. |
-| -c            | --slingHome=&lt;slingHome&gt;                 | Sling context directory (default `sling`)                                    |
-| -D            | --define=&lt;key=value&gt;                    | Sets property key to value. This is different than the -D JVM option. This must come after the jar filename. |
-| -f            | --logFile=&lt;logFile&gt;                     | Log file or "-" for stdout (default `logs/error.log`)                        |
-| -h            | --help                                        | Display usage                                                                |
+| -c            | --slingHome=&lt;slingHome&gt;                 | Sling context directory (default `sling`).                                   |
+| -D            | --define=&lt;key=value&gt;                    | Sets property key to value. This is different than the `-D` JVM option. This must come after the jar filename. |
+| -f            | --logFile=&lt;logFile&gt;                     | Log file or "-" for stdout (default `logs/error.log`).                       |
+| -h            | --help                                        | Display usage.                                                               |
 | -i            | --launcherHome=&lt;launcherHome&gt;           | Launcher home directory (default `launcher`).                                |
-| -j            | --control=&lt;controlAddress&gt;              | Host and port to use for control connection. Format `[host:]port`             
-| -l            | --logLevel=&lt;logLevel&gt;                   | Initial loglevel (0..4, FATAL, ERROR, WARN, INFO, DEBUG)                     |
+| -j            | --control=&lt;controlAddress&gt;              | Host and port to use for control connection. Format `[host:]port`.            
+| -l            | --logLevel=&lt;logLevel&gt;                   | Initial log level (0..4, FATAL, ERROR, WARN, INFO, DEBUG).                    |
 | -n            | --noShutdownHook                              | Don't install the shutdown hook.                                             |
-| -p            | --port=&lt;port&gt;                           | Port to listen to (default `8080`)                                           |
-| -r            | --context=&lt;contextPath&gt;                 | Root servlet context path for the HTTP service (default `/`)                 |
+| -p            | --port=&lt;port&gt;                           | Port to listen to (default `8080`).                                          |
+| -r            | --context=&lt;contextPath&gt;                 | Root servlet context path for the HTTP service (default `/`).                |
 | -s            | --mainFeature=&lt;mainFeatureFile&gt;         | Main feature file (file path or URL). This will replace the default file used by Sling. |
 | -v            | --verbose                                     | Start the launcher with additional information.                              |
 
@@ -188,8 +188,8 @@ For compatibility, most of the options are the same as the
 [Sling Starter](https://github.com/apache/sling-org-apache-sling-starter)  project. The
 options below are specific to the Kickstarter. 
 
-* **-s**: Replaces the main default Sling feature with your own Feature Model. 
-* **-af**: Defines additional Feature Models (use multiple **-af** options for multiple features)
+* `-s`: Replaces the main default Sling feature with your own Feature Model. 
+* `-af`: Defines additional Feature Models (use multiple `-af` options for multiple features).
 
 </div>
 
@@ -200,8 +200,8 @@ let's re-run the Kickstarter and specify an external Feature Model.
 
 We'll start by moving into our `kickstarter` workspace. Then, we'll Stop Sling if it's still running. 
 Next, remove the old `conf` and `launcher` directories so that we can start a clean Sling instance.
-Extract the Sling 12 Feature Model file from the Kickstart JAR. Lastly, start Sling using the Feature Model 
-file.
+Extract the Sling 12 Feature Model file from the Kickstarter JAR. Lastly, start Sling using the Feature Model 
+JSON file.
 
     $ cd kickstarter
     $ java -jar org.apache.sling.kickstart-0.0.2.jar stop
