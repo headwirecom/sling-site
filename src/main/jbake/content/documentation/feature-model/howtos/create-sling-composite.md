@@ -48,7 +48,7 @@ of a Sling site as consisting of two parts: your content (which changes often) a
 (which changes periodically). Unless there's a scheduled application release, there's very little
 reason to allow a running Sling instance to be changed from a code/application perspective. 
 
-The Composite NodeStore provides a great way to ensure that application changes are not allowed without an 
+It provides a great way to ensure that application changes are not allowed without an 
 official release, but still allow day-to-day editorial content changes. Some of the benefits of using
 the Composite NodeStore and separating your content and application concerns are:
 
@@ -86,7 +86,7 @@ Let's take a quick look at what will happen behind the scenes as we work through
 
 <div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-**TODO:** Update instructions to use the binary release once the Kickstarter is officially released, 
+**TODO:** Update instructions to use the binary release.
 
 </div>
 
@@ -113,8 +113,7 @@ When you see the line below, Sling has been fully initialized and should be safe
 
 <div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-**TODO:** Add more detail on what happens during the seeding process. Maybe a pointer to a section at the end 
-of the document?
+**TODO:** Add more detail on what happens during the seeding process. 
 
 </div>
 
@@ -128,8 +127,7 @@ Now, let's start Sling a second time using the Composite NodeStore.
 
 <div style="background: #fff3cd; padding: 14px; border-left: 10px solid #ffeeba;">
 
-**TODO:** Add more detail on what happens during the composite startup process. Maybe a pointer to a section at the end 
-of the document?
+**TODO:** Add more detail on what happens during the composite startup process. 
 
 </div>
 
@@ -179,7 +177,7 @@ You should now receive an _HTTP 500 error_ response. So, even as the admin user,
 
 </div>
 
-If you stick with us, we'll show you how to upgrade your application with the Composite Nodestore.
+If you stick with us, we'll show you how to convert an existing Provisioning Model to a Feature Model..
 
 <div style="background: #cde0ea; padding: 14px; border-left: 10px solid #f9bb00; margin-bottom: 1em;">
 
