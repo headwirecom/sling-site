@@ -41,8 +41,8 @@ The Sling Feature Model provides a robust approach for configuring and assemblin
 Here are some of its high-level capabilities:
 
 * Declarative description of an entire application or part of an application
-* Support for aggregating Feature Models into a single Feature model for simpler packaging and distribution
-* Easy application startup through the Feature Launcher
+* Support for aggregating Feature Models into a single Feature Model for simpler packaging and distribution
+* Easy application startup through the Feature Launcher or the Kickstarter
 
 
 ### What's a Feature Model project
@@ -82,7 +82,7 @@ Now, let's update the POM and add a few elements to layer on support for Feature
     <sling-kickstart-maven-plugin.version>0.0.2</sling-kickstart-maven-plugin.version>
     <oak.version>1.26.0</oak.version>
 
-**2.** Add the [Sling Feature Maven Plugin](https://sling.apache.org/components/slingfeature-maven-plugin/plugin-info.html)  under `<builds>` -> `<plugins>`.
+**2.** Add the [Sling Feature Maven Plugin](https://sling.apache.org/components/slingfeature-maven-plugin/plugin-info.html)  under `<build>` -> `<plugins>`.
 
     <plugin>
         <groupId>org.apache.sling</groupId>
@@ -189,7 +189,7 @@ in your target directory that contains your application's Feature Model JSON.
 
     $ mvn clean install -Plaunch 
 
-Now, log into Sling and visit the System Console. You should see your bundle (`feature-model-samplefeature-model-sample`) listed.
+Now, log into Sling and visit the System Console. You should see your bundle (`feature-model-sample`) listed.
 
 
 ## Mission Accomplished
