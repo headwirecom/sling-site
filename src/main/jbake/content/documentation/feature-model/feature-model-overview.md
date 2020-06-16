@@ -18,7 +18,7 @@ is more robust and is not coupled to Sling. It addresses application packaging c
 * Feature Extension - An extension point for adding new capabilities to the Feature Model. 
 * Feature Archives - Packages one or more features and dependencies to simplify the distribution of an application.
 * Feature Reference Files - A text descriptor file with a list of features.
-* Feature Aggregation - A method for packaging multiple features into a single feature
+* Feature Aggregation - A method for packaging multiple features into a single feature.
 
 ### About this How-To
 
@@ -36,7 +36,7 @@ that you start on the first and work your way through them consecutively.
 * [How to Create a Sling Composite Node Store](/documentation/feature-model/howtos/create-sling-composite.html)
 * [How to Convert a Provisioning Model to a Feature Model](/documentation/feature-model/howtos/create-sling-fm.html)
 
-## Related Advanced Reading
+## Advanced Reading
 
 Want to know more? Take a look at the README files for the projects in the Feature Model ecosystem.
 
